@@ -5,7 +5,7 @@ on:
     types: [ opened, ready_for_review ]
 
 env:
-  REVIEWERS: 'masa-futa,Ryo24,trm11tkr'
+  REVIEWERS: 'masa-futa,r0227n,trm11tkr'
 
 jobs:
   assign:
