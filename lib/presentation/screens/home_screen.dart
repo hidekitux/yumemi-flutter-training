@@ -7,8 +7,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
       body: Center(
         child: FractionallySizedBox(
@@ -17,18 +15,12 @@ class HomeScreen extends StatelessWidget {
             children: [
               const Spacer(),
               const AspectRatio(aspectRatio: 1, child: Placeholder()),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
                 child: Row(
                   children: [
-                    TemperatureIndicator(
-                      label: '** ℃',
-                      color: colorScheme.primary,
-                    ),
-                    TemperatureIndicator(
-                      label: '** ℃',
-                      color: colorScheme.secondary,
-                    ),
+                    TemperatureIndicator(label: '** ℃', color: Colors.blue),
+                    TemperatureIndicator(label: '** ℃', color: Colors.red),
                   ],
                 ),
               ),
