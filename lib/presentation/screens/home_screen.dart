@@ -21,8 +21,14 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Row(
                   children: [
-                    TemperatureIndicator(color: colorScheme.primary),
-                    TemperatureIndicator(color: colorScheme.secondary),
+                    TemperatureIndicator(
+                      label: '** ℃',
+                      color: colorScheme.primary,
+                    ),
+                    TemperatureIndicator(
+                      label: '** ℃',
+                      color: colorScheme.secondary,
+                    ),
                   ],
                 ),
               ),
