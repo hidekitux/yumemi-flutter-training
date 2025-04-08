@@ -16,19 +16,15 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              Column(
-                children: [
-                  const AspectRatio(aspectRatio: 1, child: Placeholder()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Row(
-                      children: [
-                        TemperatureIndicator(color: colorScheme.primary),
-                        TemperatureIndicator(color: colorScheme.secondary),
-                      ],
-                    ),
-                  ),
-                ],
+              const AspectRatio(aspectRatio: 1, child: Placeholder()),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Row(
+                  children: [
+                    TemperatureIndicator(color: colorScheme.primary),
+                    TemperatureIndicator(color: colorScheme.secondary),
+                  ],
+                ),
               ),
               Flexible(
                 child: Padding(
