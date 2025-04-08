@@ -1,15 +1,15 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class TemperatureIndicator extends StatelessWidget {
   const TemperatureIndicator({
-    required this.color,
-    required this.label,
+    required Color color,
+    required String label,
     super.key,
-  });
+  }) : _label = label,
+       _color = color;
 
-  final Color color;
-  final String label;
+  final Color _color;
+  final String _label;
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +17,10 @@ class TemperatureIndicator extends StatelessWidget {
 
     return Expanded(
       child: Text(
-        label,
+        _label,
         textAlign: TextAlign.center,
-        style: textStyle?.copyWith(color: color),
+        style: textStyle?.copyWith(color: _color),
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(ColorProperty('color', color));
-    properties.add(StringProperty('label', label));
   }
 }

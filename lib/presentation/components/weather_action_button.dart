@@ -1,32 +1,23 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class WeatherActionButton extends StatelessWidget {
   const WeatherActionButton({
-    required this.label,
-    required this.onPressed,
+    required String label,
+    required void Function() onPressed,
     super.key,
-  });
+  }) : _onPressed = onPressed,
+       _label = label;
 
-  final String label;
-  final VoidCallback onPressed;
+  final String _label;
+  final VoidCallback _onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: TextButton(
-        onPressed: onPressed,
-        child: Text(label, textAlign: TextAlign.center),
+        onPressed: _onPressed,
+        child: Text(_label, textAlign: TextAlign.center),
       ),
-    );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('label', label));
-    properties.add(
-      ObjectFlagProperty<VoidCallback>.has('onPressed', onPressed),
     );
   }
 }
