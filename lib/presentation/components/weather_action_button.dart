@@ -13,10 +13,16 @@ class WeatherActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.labelLarge;
+
     return Expanded(
       child: TextButton(
         onPressed: _onPressed,
-        child: Text(_label, textAlign: TextAlign.center),
+        child: Text(
+          _label,
+          textAlign: TextAlign.center,
+          style: textStyle?.copyWith(color: Colors.blue),
+        ),
       ),
     );
   }
