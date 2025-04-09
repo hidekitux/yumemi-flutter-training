@@ -14,14 +14,9 @@ enum WeatherCondition {
     throw Exception('Invalid WeatherCondition: $value');
   }
 
-  String get svgPath {
-    switch (this) {
-      case WeatherCondition.sunny:
-        return Assets.images.sunny;
-      case WeatherCondition.cloudy:
-        return Assets.images.cloudy;
-      case WeatherCondition.rainy:
-        return Assets.images.rainy;
-    }
-  }
+  String get svgPath => switch (this) {
+    WeatherCondition.sunny => Assets.images.sunny,
+    WeatherCondition.cloudy => Assets.images.cloudy,
+    WeatherCondition.rainy => Assets.images.rainy,
+  };
 }
