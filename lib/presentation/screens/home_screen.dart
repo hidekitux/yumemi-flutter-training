@@ -20,11 +20,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   WeatherCondition? _weatherCondition;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _reloadWeather() => widget._reloadWeatherUseCase.execute(
     onSuccess: (weatherCondition) {
       setState(() => _weatherCondition = weatherCondition);
