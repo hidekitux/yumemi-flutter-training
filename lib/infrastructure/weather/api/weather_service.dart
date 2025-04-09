@@ -1,7 +1,7 @@
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 abstract class WeatherService {
-  String fetchSimpleWeather();
+  String fetchThrowsWeather();
 }
 
 class WeatherServiceImpl implements WeatherService {
@@ -10,7 +10,8 @@ class WeatherServiceImpl implements WeatherService {
   final YumemiWeather _yumemiWeather;
 
   @override
-  String fetchSimpleWeather() {
-    return _yumemiWeather.fetchSimpleWeather();
+  String fetchThrowsWeather() {
+    // TODO: 仮の値を変更する
+    return _yumemiWeather.fetchThrowsWeather('tokyo');
   }
 }

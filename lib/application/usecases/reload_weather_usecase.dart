@@ -14,7 +14,7 @@ class ReloadWeatherUseCase implements UseCase<WeatherCondition> {
   }) {
     try {
       final weatherCondition = WeatherCondition.fromString(
-        _weatherRepository.getSimpleWeather(),
+        _weatherRepository.getThrowsWeather(),
       );
       return onSuccess(weatherCondition);
     } on Exception catch (error) {

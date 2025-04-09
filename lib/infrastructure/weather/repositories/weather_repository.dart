@@ -1,7 +1,7 @@
 import 'package:flutter_training/infrastructure/weather/api/weather_service.dart';
 
 abstract class WeatherRepository {
-  String getSimpleWeather();
+  String getThrowsWeather();
 }
 
 class WeatherRepositoryImpl implements WeatherRepository {
@@ -10,7 +10,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherService _weatherService;
 
   @override
-  String getSimpleWeather() {
-    return _weatherService.fetchSimpleWeather();
+  String getThrowsWeather() {
+    return _weatherService.fetchThrowsWeather();
   }
 }
