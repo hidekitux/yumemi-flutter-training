@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_training/application/usecases/reload_weather_usecase.dart';
+import 'package:flutter_training/presentation/mixins/on_layout_built_mixin.dart';
 import 'package:flutter_training/presentation/screens/weather_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -16,8 +17,9 @@ class InitialScreen extends StatefulWidget {
   State<InitialScreen> createState() => _InitialScreenState();
 }
 
-class _InitialScreenState extends State<InitialScreen> {
-  Future<void> _navigateToWeatherScreen() async {
+class _InitialScreenState extends State<InitialScreen> with OnLayoutBuiltMixin {
+  @override
+  Future<void> onLayoutBuilt() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
     if (!mounted) {
@@ -33,17 +35,7 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
     );
 
-    await _navigateToWeatherScreen();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    unawaited(
-      WidgetsBinding.instance.endOfFrame.then(
-        (_) => _navigateToWeatherScreen(),
-      ),
-    );
+    await onLayoutBuilt();
   }
 
   @override
