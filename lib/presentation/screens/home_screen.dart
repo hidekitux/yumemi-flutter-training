@@ -25,11 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  // TODO: エラーハンドリングを実装する
-  void _reloadWeather() =>
-      widget._reloadWeatherUseCase.execute((weatherCondition) {
-        setState(() => _weatherCondition = weatherCondition);
-      }, (_) {});
+  void _reloadWeather() => widget._reloadWeatherUseCase.execute(
+    onSuccess: (weatherCondition) {
+      setState(() => _weatherCondition = weatherCondition);
+    },
+    // TODO: エラーハンドリングを実装する
+    onError: (_) {},
+  );
 
   @override
   Widget build(BuildContext context) {

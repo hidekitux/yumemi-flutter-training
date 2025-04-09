@@ -8,10 +8,10 @@ class ReloadWeatherUseCase implements UseCase<WeatherCondition> {
   final WeatherRepository _weatherRepository;
 
   @override
-  void execute(
-    UseCaseSuccessCallback<WeatherCondition> onSuccess,
-    UseCaseErrorCallback onError,
-  ) {
+  void execute({
+    required UseCaseSuccessCallback<WeatherCondition> onSuccess,
+    required UseCaseErrorCallback onError,
+  }) {
     try {
       final weatherCondition = WeatherCondition.fromString(
         _weatherRepository.getSimpleWeather(),
