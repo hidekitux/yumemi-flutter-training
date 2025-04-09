@@ -5,8 +5,8 @@ import 'package:flutter_training/domain/weather/entities/weather_condition_entit
 import 'package:flutter_training/presentation/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/components/weather_action_button.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class WeatherScreen extends StatefulWidget {
+  const WeatherScreen({
     required ReloadWeatherUseCase reloadWeatherUseCase,
     super.key,
   }) : _reloadWeatherUseCase = reloadWeatherUseCase;
@@ -14,10 +14,10 @@ class HomeScreen extends StatefulWidget {
   final ReloadWeatherUseCase _reloadWeatherUseCase;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<WeatherScreen> createState() => _WeatherScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _WeatherScreenState extends State<WeatherScreen> {
   WeatherCondition? _weatherCondition;
 
   void _reloadWeather() => widget._reloadWeatherUseCase.execute(
