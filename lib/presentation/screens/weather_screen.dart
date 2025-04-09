@@ -20,6 +20,8 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen> {
   WeatherCondition? _weatherCondition;
 
+  void _closeWeather() => Navigator.of(context).pop();
+
   void _reloadWeather() => widget._reloadWeatherUseCase.execute(
     onSuccess: (weatherCondition) {
       setState(() => _weatherCondition = weatherCondition);
@@ -58,8 +60,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   padding: const EdgeInsets.only(top: 80),
                   child: Row(
                     children: [
-                      // TODO: Closeボタンを押したときの動作を実装する
-                      WeatherActionButton(label: 'Close', onPressed: () {}),
+                      WeatherActionButton(
+                        label: 'Close',
+                        onPressed: _closeWeather,
+                      ),
                       WeatherActionButton(
                         label: 'Reload',
                         onPressed: _reloadWeather,
