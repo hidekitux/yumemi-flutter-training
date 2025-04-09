@@ -50,6 +50,18 @@ jobs:
       - name: Execute build_runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
+      - name: Check if build_runner generated files are up to date
+        run: |
+          # .dartファイルが変更されているかを確認する
+          if [[ -n $(git status --porcelain | grep .dart) ]]; then
+            # 変更されていたら、エラーで終了する
+            echo "build_runner generated files are not up to date"
+            exit 1
+          else
+            # 変更されていなければ、続ける
+            echo "build_runner generated files are up to date"
+          fi
+
         # https://github.com/invertase/github-action-dart-analyzer
       - name: Report analyze
         uses: invertase/github-action-dart-analyzer@v1
