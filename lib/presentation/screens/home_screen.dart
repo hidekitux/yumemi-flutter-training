@@ -1,10 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_training/application/usecases/reload_weather_usecase.dart';
+import 'package:flutter_training/domain/weather/entities/weather_condition_entity.dart';
 import 'package:flutter_training/presentation/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/components/weather_action_button.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
+    required ReloadWeatherUseCase reloadWeatherUseCase,
+    super.key,
+  }) : _reloadWeatherUseCase = reloadWeatherUseCase;
+
+  final ReloadWeatherUseCase _reloadWeatherUseCase;
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  WeatherCondition? _weatherCondition;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  // TODO: エラーハンドリングを実装する
+  void _reloadWeather() =>
+      widget._reloadWeatherUseCase.execute((weatherCondition) {
+        setState(() => _weatherCondition = weatherCondition);
+      }, (_) {});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +42,10 @@ class HomeScreen extends StatelessWidget {
               const Spacer(),
               AspectRatio(
                 aspectRatio: 1,
-                child: SvgPicture.asset('assets/images/sunny.svg'),
+                child:
+                    _weatherCondition != null
+                        ? SvgPicture.asset(_weatherCondition!.svgPath)
+                        : const Placeholder(),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
@@ -35,8 +63,10 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       // TODO: Closeボタンを押したときの動作を実装する
                       WeatherActionButton(label: 'Close', onPressed: () {}),
-                      // TODO: Reloadボタンを押したときの動作を実装する
-                      WeatherActionButton(label: 'Reload', onPressed: () {}),
+                      WeatherActionButton(
+                        label: 'Reload',
+                        onPressed: _reloadWeather,
+                      ),
                     ],
                   ),
                 ),
