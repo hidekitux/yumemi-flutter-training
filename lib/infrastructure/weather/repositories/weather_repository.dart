@@ -5,16 +5,11 @@ import 'package:flutter_training/domain/weather/entities/weather_condition_entit
 import 'package:flutter_training/infrastructure/weather/api/weather_service.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-abstract class WeatherRepository {
-  Result<WeatherCondition> getThrowsWeather();
-}
-
-class WeatherRepositoryImpl implements WeatherRepository {
-  WeatherRepositoryImpl(this._weatherService);
+class WeatherRepository {
+  WeatherRepository(this._weatherService);
 
   final WeatherService _weatherService;
 
-  @override
   Result<WeatherCondition> getThrowsWeather() {
     try {
       final result = _weatherService.fetchThrowsWeather();
