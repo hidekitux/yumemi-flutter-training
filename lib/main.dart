@@ -7,8 +7,8 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 void main() {
   final yumemiWeather = YumemiWeather();
-  final weatherService = WeatherServiceImpl(yumemiWeather);
-  final weatherRepository = WeatherRepositoryImpl(weatherService);
+  final weatherService = WeatherService(yumemiWeather);
+  final weatherRepository = WeatherRepository(weatherService);
   final reloadWeatherUseCase = ReloadWeatherUseCase(weatherRepository);
 
   runApp(WeatherApp(reloadWeatherUseCase: reloadWeatherUseCase));
