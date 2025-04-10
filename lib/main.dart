@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/application/usecases/reload_weather_usecase.dart';
 import 'package:flutter_training/infrastructure/weather/api/weather_service.dart';
 import 'package:flutter_training/infrastructure/weather/repositories/weather_repository.dart';
-import 'package:flutter_training/presentation/screens/home_screen.dart';
+import 'package:flutter_training/presentation/screens/initial_screen.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 void main() {
@@ -25,7 +25,7 @@ class WeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(reloadWeatherUseCase: _reloadWeatherUseCase),
+      home: InitialScreen(reloadWeatherUseCase: _reloadWeatherUseCase),
     );
   }
 }
