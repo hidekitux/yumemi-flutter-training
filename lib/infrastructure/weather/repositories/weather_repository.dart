@@ -6,7 +6,7 @@ import 'package:flutter_training/infrastructure/weather/api/weather_service.dart
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherRepository {
-  WeatherRepository(this._weatherService);
+  const WeatherRepository(this._weatherService);
 
   final WeatherService _weatherService;
 

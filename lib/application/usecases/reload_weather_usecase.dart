@@ -4,7 +4,7 @@ import 'package:flutter_training/domain/weather/entities/weather_info_entity.dar
 import 'package:flutter_training/infrastructure/weather/repositories/weather_repository.dart';
 
 class ReloadWeatherUseCase implements UseCase<WeatherInfo> {
-  ReloadWeatherUseCase(this._weatherRepository);
+  const ReloadWeatherUseCase(this._weatherRepository);
 
   final WeatherRepository _weatherRepository;
 
