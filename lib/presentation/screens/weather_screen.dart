@@ -31,7 +31,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       return ErrorDialog(
         title: 'エラーが発生しました',
         message: message,
-        onOkPressed: () => Navigator.of(context).pop(),
+        onOkPressed: Navigator.of(context).pop,
       );
     },
   );
