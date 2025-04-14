@@ -5,7 +5,8 @@ class WeatherService {
 
   final YumemiWeather _yumemiWeather;
 
-  String fetchSimpleWeather() {
-    return _yumemiWeather.fetchSimpleWeather();
+  String fetchThrowsWeather() {
+    // TODO: 仮の値を変更する
+    return _yumemiWeather.fetchThrowsWeather('tokyo');
   }
 }

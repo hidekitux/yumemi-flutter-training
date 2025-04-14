@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_training/application/usecases/reload_weather_usecase.dart';
 import 'package:flutter_training/domain/weather/entities/weather_condition_entity.dart';
+import 'package:flutter_training/presentation/components/error_dialog.dart';
 import 'package:flutter_training/presentation/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/components/weather_action_button.dart';
 
@@ -22,12 +25,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   void _closeWeather() => Navigator.of(context).pop();
 
+  Future<void> _showErrorDialog(String message) => showDialog<void>(
+    context: context,
+    builder: (context) {
+      return ErrorDialog(
+        title: 'エラーが発生しました',
+        message: message,
+        onOkPressed: Navigator.of(context).pop,
+      );
+    },
+  );
+
   void _reloadWeather() => widget._reloadWeatherUseCase.execute(
     onSuccess: (weatherCondition) {
       setState(() => _weatherCondition = weatherCondition);
     },
-    // TODO: エラーハンドリングを実装する
-    onError: (_) {},
+    onError: (message) => unawaited(_showErrorDialog(message)),
   );
 
   @override
