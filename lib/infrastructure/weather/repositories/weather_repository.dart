@@ -19,6 +19,7 @@ class WeatherRepository {
       return Failure(error.message);
     } on Exception {
       return Failure(ErrorMessages.unknown.message);
+      return Failure(CommonErrorMessages.unknown.message);
     }
   }
 }
