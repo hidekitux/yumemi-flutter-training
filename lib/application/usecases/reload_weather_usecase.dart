@@ -13,7 +13,7 @@ class ReloadWeatherUseCase implements UseCase<WeatherCondition> {
     required UseCaseSuccessCallback<WeatherCondition> onSuccess,
     required UseCaseErrorCallback onError,
   }) {
-    final weatherCondition = _weatherRepository.getThrowsWeather();
+    final weatherCondition = _weatherRepository.getWeather();
     switch (weatherCondition) {
       case Success<WeatherCondition>():
         onSuccess(weatherCondition.value);

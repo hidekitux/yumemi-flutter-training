@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_training/domain/common/constants/common_error_messages.dart';
 import 'package:flutter_training/domain/common/interfaces/result.dart';
 import 'package:flutter_training/domain/weather/constants/weather_error_messages.dart';
@@ -10,7 +11,7 @@ class WeatherRepository {
 
   final WeatherService _weatherService;
 
-  Result<WeatherCondition> getThrowsWeather() {
+  Result<WeatherCondition> getWeather() {
     try {
       final result = _weatherService.fetchThrowsWeather();
       final weatherCondition = WeatherCondition.fromString(result);
