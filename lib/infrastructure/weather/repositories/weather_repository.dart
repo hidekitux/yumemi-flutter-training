@@ -16,10 +16,17 @@ class WeatherRepository {
       final result = _weatherService.fetchThrowsWeather();
       final weatherCondition = WeatherCondition.fromString(result);
       return Success(weatherCondition);
-    } on YumemiWeatherError catch (error) {
+    } on YumemiWeatherError catch (error, stackTrace) {
+      if (kDebugMode) {
+        debugPrint(error.toString());
+        debugPrintStack(stackTrace: stackTrace);
+      }
       return Failure(error.message);
-    } on Exception {
-      return Failure(ErrorMessages.unknown.message);
+    } on Exception catch (error, stackTrace) {
+      if (kDebugMode) {
+        debugPrint(error.toString());
+        debugPrintStack(stackTrace: stackTrace);
+      }
       return Failure(CommonErrorMessages.unknown.message);
     }
   }
