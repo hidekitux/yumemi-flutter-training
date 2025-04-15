@@ -4,6 +4,10 @@ targets:
       flutter_gen_runner:
         options:
           output: lib/config/gen/
+      freezed:
+        generate_for:
+          include:
+            - "lib/**/entities/*.dart"
       json_serializable:
         generate_for:
           include:
