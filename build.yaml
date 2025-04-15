@@ -4,3 +4,12 @@ targets:
       flutter_gen_runner:
         options:
           output: lib/config/gen/
+      json_serializable:
+        options:
+          checked: true
+          field_rename: snake
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - type=lint
+            - duplicate_ignore
