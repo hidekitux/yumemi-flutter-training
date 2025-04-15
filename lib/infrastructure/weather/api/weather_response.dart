@@ -9,13 +9,26 @@ class WeatherResponse {
     required this.date,
   });
 
-  factory WeatherResponse.fromJson(Map<String, dynamic> json) =>
-      WeatherResponse(
-        weatherCondition: json['weather_condition'] as String,
-        maxTemperature: json['max_temperature'] as int,
-        minTemperature: json['min_temperature'] as int,
-        date: json['date'] as String,
-      );
+  factory WeatherResponse.fromJson(Map<String, dynamic> json) {
+    final weatherCondition = json['weather_condition'];
+    final maxTemperature = int.tryParse(json['max_temperature'].toString());
+    final minTemperature = int.tryParse(json['min_temperature'].toString());
+    final date = json['date'];
+
+    if (weatherCondition == null ||
+        maxTemperature == null ||
+        minTemperature == null ||
+        date == null) {
+      throw const FormatException('Invalid weather data');
+    }
+
+    return WeatherResponse(
+      weatherCondition: weatherCondition.toString(),
+      maxTemperature: maxTemperature,
+      minTemperature: minTemperature,
+      date: date.toString(),
+    );
+  }
 
   final String weatherCondition;
   final int maxTemperature;
