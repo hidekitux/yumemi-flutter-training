@@ -8,11 +8,11 @@ part of 'weather_info_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-WeatherInfo _$WeatherInfoFromJson(Map<String, dynamic> json) => $checkedCreate(
-  'WeatherInfo',
+_WeatherInfo _$WeatherInfoFromJson(Map<String, dynamic> json) => $checkedCreate(
+  '_WeatherInfo',
   json,
   ($checkedConvert) {
-    final val = WeatherInfo(
+    final val = _WeatherInfo(
       weatherCondition: $checkedConvert(
         'weather_condition',
         (v) => $enumDecode(_$WeatherConditionEnumMap, v),
@@ -37,7 +37,7 @@ WeatherInfo _$WeatherInfoFromJson(Map<String, dynamic> json) => $checkedCreate(
 );
 
 Map<String, dynamic> _$WeatherInfoToJson(
-  WeatherInfo instance,
+  _WeatherInfo instance,
 ) => <String, dynamic>{
   'weather_condition': _$WeatherConditionEnumMap[instance.weatherCondition]!,
   'max_temperature': instance.maxTemperature,
