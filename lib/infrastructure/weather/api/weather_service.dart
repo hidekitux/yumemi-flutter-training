@@ -9,10 +9,8 @@ class WeatherService {
 
   final YumemiWeather _yumemiWeather;
 
-  WeatherResponse fetchWeather() {
-    // TODO: 仮の値を変更する
-    final requestData = WeatherRequest(area: 'tokyo', date: DateTime.now());
-    final requestString = jsonEncode(requestData.toJson());
+  WeatherResponse fetchWeather(WeatherRequest weatherRequest) {
+    final requestString = jsonEncode(weatherRequest.toJson());
     final jsonString = _yumemiWeather.fetchWeather(requestString);
     final jsonData = jsonDecode(jsonString);
 
