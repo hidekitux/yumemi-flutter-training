@@ -66,6 +66,7 @@ jobs:
       - name: Report analyze
         uses: invertase/github-action-dart-analyzer@v1
         with:
+          custom-lint: true
           fatal-infos: true
 
       - name: Run test
