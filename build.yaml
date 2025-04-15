@@ -5,6 +5,9 @@ targets:
         options:
           output: lib/config/gen/
       json_serializable:
+        generate_for:
+          include:
+            - "lib/**/entities/*.dart"
         options:
           checked: true
           field_rename: snake
