@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_training/application/usecases/reload_weather_usecase.dart';
-import 'package:flutter_training/domain/weather/entities/weather_condition_entity.dart';
+import 'package:flutter_training/domain/weather/entities/weather_info_entity.dart';
 import 'package:flutter_training/presentation/components/error_dialog.dart';
 import 'package:flutter_training/presentation/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/components/weather_action_button.dart';
@@ -21,7 +21,7 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  WeatherCondition? _weatherCondition;
+  WeatherInfo? _weatherInfo;
 
   void _closeWeather() => Navigator.of(context).pop();
 
@@ -37,8 +37,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
   );
 
   void _reloadWeather() => widget._reloadWeatherUseCase.execute(
-    onSuccess: (weatherCondition) {
-      setState(() => _weatherCondition = weatherCondition);
+    onSuccess: (weatherInfo) {
+      setState(() => _weatherInfo = weatherInfo);
     },
     onError: (message) => unawaited(_showErrorDialog(message)),
   );
@@ -55,16 +55,24 @@ class _WeatherScreenState extends State<WeatherScreen> {
               AspectRatio(
                 aspectRatio: 1,
                 child:
-                    _weatherCondition != null
-                        ? SvgPicture.asset(_weatherCondition!.svgPath)
+                    _weatherInfo != null
+                        ? SvgPicture.asset(
+                          _weatherInfo!.weatherCondition.svgPath,
+                        )
                         : const Placeholder(),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Row(
                   children: [
-                    TemperatureIndicator(label: '** ℃', color: Colors.blue),
-                    TemperatureIndicator(label: '** ℃', color: Colors.red),
+                    TemperatureIndicator(
+                      label: '${_weatherInfo?.minTemperature ?? '**'} ℃',
+                      color: Colors.blue,
+                    ),
+                    TemperatureIndicator(
+                      label: '${_weatherInfo?.maxTemperature ?? '**'} ℃',
+                      color: Colors.red,
+                    ),
                   ],
                 ),
               ),
