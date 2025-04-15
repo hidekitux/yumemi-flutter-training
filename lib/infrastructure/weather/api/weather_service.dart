@@ -11,11 +11,11 @@ class WeatherService {
 
   WeatherResponse fetchWeather(WeatherRequest weatherRequest) {
     final requestString = jsonEncode(weatherRequest.toJson());
-    final jsonString = _yumemiWeather.fetchWeather(requestString);
-    final jsonData = jsonDecode(jsonString);
+    final responseString = _yumemiWeather.fetchWeather(requestString);
+    final responseJson = jsonDecode(responseString);
 
-    if (jsonData is Map<String, dynamic>) {
-      return WeatherResponse.fromJson(jsonData);
+    if (responseJson is Map<String, dynamic>) {
+      return WeatherResponse.fromJson(responseJson);
     } else {
       throw const FormatException('Invalid weather data');
     }
