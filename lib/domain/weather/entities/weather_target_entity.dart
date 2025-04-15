@@ -1,16 +1,13 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'weather_target_entity.freezed.dart';
 part 'weather_target_entity.g.dart';
 
-@JsonSerializable()
-class WeatherTarget {
-  const WeatherTarget({required this.area, required this.date});
+@freezed
+abstract class WeatherTarget with _$WeatherTarget {
+  const factory WeatherTarget({required String area, required DateTime date}) =
+      _WeatherTarget;
 
-  factory WeatherTarget.fromJson(Map<String, dynamic> json) =>
+  factory WeatherTarget.fromJson(Map<String, Object?> json) =>
       _$WeatherTargetFromJson(json);
-
-  final String area;
-  final DateTime date;
-
-  Map<String, dynamic> toJson() => _$WeatherTargetToJson(this);
 }
