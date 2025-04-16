@@ -5,14 +5,14 @@ part 'weather_info_entity.freezed.dart';
 part 'weather_info_entity.g.dart';
 
 @freezed
-abstract class WeatherInfo with _$WeatherInfo {
-  const factory WeatherInfo({
-    required WeatherCondition weatherCondition,
+abstract class WeatherInfoEntity with _$WeatherInfoEntity {
+  const factory WeatherInfoEntity({
+    required WeatherConditionEntity weatherCondition,
     required int maxTemperature,
     required int minTemperature,
     required DateTime date,
-  }) = _WeatherInfo;
+  }) = _WeatherInfoEntity;
 
-  factory WeatherInfo.fromJson(Map<String, Object?> json) =>
-      _$WeatherInfoFromJson(json);
+  factory WeatherInfoEntity.fromJson(Map<String, Object?> json) =>
+      _$WeatherInfoEntityFromJson(json);
 }

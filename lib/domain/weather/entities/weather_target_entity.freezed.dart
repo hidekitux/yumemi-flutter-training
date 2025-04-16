@@ -14,22 +14,22 @@ part of 'weather_target_entity.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$WeatherTarget {
+mixin _$WeatherTargetEntity {
 
  String get area; DateTime get date;
-/// Create a copy of WeatherTarget
+/// Create a copy of WeatherTargetEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$WeatherTargetCopyWith<WeatherTarget> get copyWith => _$WeatherTargetCopyWithImpl<WeatherTarget>(this as WeatherTarget, _$identity);
+$WeatherTargetEntityCopyWith<WeatherTargetEntity> get copyWith => _$WeatherTargetEntityCopyWithImpl<WeatherTargetEntity>(this as WeatherTargetEntity, _$identity);
 
-  /// Serializes this WeatherTarget to a JSON map.
+  /// Serializes this WeatherTargetEntity to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherTarget&&(identical(other.area, area) || other.area == area)&&(identical(other.date, date) || other.date == date));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherTargetEntity&&(identical(other.area, area) || other.area == area)&&(identical(other.date, date) || other.date == date));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -38,15 +38,15 @@ int get hashCode => Object.hash(runtimeType,area,date);
 
 @override
 String toString() {
-  return 'WeatherTarget(area: $area, date: $date)';
+  return 'WeatherTargetEntity(area: $area, date: $date)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $WeatherTargetCopyWith<$Res>  {
-  factory $WeatherTargetCopyWith(WeatherTarget value, $Res Function(WeatherTarget) _then) = _$WeatherTargetCopyWithImpl;
+abstract mixin class $WeatherTargetEntityCopyWith<$Res>  {
+  factory $WeatherTargetEntityCopyWith(WeatherTargetEntity value, $Res Function(WeatherTargetEntity) _then) = _$WeatherTargetEntityCopyWithImpl;
 @useResult
 $Res call({
  String area, DateTime date
@@ -57,14 +57,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$WeatherTargetCopyWithImpl<$Res>
-    implements $WeatherTargetCopyWith<$Res> {
-  _$WeatherTargetCopyWithImpl(this._self, this._then);
+class _$WeatherTargetEntityCopyWithImpl<$Res>
+    implements $WeatherTargetEntityCopyWith<$Res> {
+  _$WeatherTargetEntityCopyWithImpl(this._self, this._then);
 
-  final WeatherTarget _self;
-  final $Res Function(WeatherTarget) _then;
+  final WeatherTargetEntity _self;
+  final $Res Function(WeatherTargetEntity) _then;
 
-/// Create a copy of WeatherTarget
+/// Create a copy of WeatherTargetEntity
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? area = null,Object? date = null,}) {
   return _then(_self.copyWith(
@@ -80,27 +80,27 @@ as DateTime,
 /// @nodoc
 @JsonSerializable()
 
-class _WeatherTarget implements WeatherTarget {
-  const _WeatherTarget({required this.area, required this.date});
-  factory _WeatherTarget.fromJson(Map<String, dynamic> json) => _$WeatherTargetFromJson(json);
+class _WeatherTargetEntity implements WeatherTargetEntity {
+  const _WeatherTargetEntity({required this.area, required this.date});
+  factory _WeatherTargetEntity.fromJson(Map<String, dynamic> json) => _$WeatherTargetEntityFromJson(json);
 
 @override final  String area;
 @override final  DateTime date;
 
-/// Create a copy of WeatherTarget
+/// Create a copy of WeatherTargetEntity
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$WeatherTargetCopyWith<_WeatherTarget> get copyWith => __$WeatherTargetCopyWithImpl<_WeatherTarget>(this, _$identity);
+_$WeatherTargetEntityCopyWith<_WeatherTargetEntity> get copyWith => __$WeatherTargetEntityCopyWithImpl<_WeatherTargetEntity>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$WeatherTargetToJson(this, );
+  return _$WeatherTargetEntityToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherTarget&&(identical(other.area, area) || other.area == area)&&(identical(other.date, date) || other.date == date));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherTargetEntity&&(identical(other.area, area) || other.area == area)&&(identical(other.date, date) || other.date == date));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -109,15 +109,15 @@ int get hashCode => Object.hash(runtimeType,area,date);
 
 @override
 String toString() {
-  return 'WeatherTarget(area: $area, date: $date)';
+  return 'WeatherTargetEntity(area: $area, date: $date)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$WeatherTargetCopyWith<$Res> implements $WeatherTargetCopyWith<$Res> {
-  factory _$WeatherTargetCopyWith(_WeatherTarget value, $Res Function(_WeatherTarget) _then) = __$WeatherTargetCopyWithImpl;
+abstract mixin class _$WeatherTargetEntityCopyWith<$Res> implements $WeatherTargetEntityCopyWith<$Res> {
+  factory _$WeatherTargetEntityCopyWith(_WeatherTargetEntity value, $Res Function(_WeatherTargetEntity) _then) = __$WeatherTargetEntityCopyWithImpl;
 @override @useResult
 $Res call({
  String area, DateTime date
@@ -128,17 +128,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$WeatherTargetCopyWithImpl<$Res>
-    implements _$WeatherTargetCopyWith<$Res> {
-  __$WeatherTargetCopyWithImpl(this._self, this._then);
+class __$WeatherTargetEntityCopyWithImpl<$Res>
+    implements _$WeatherTargetEntityCopyWith<$Res> {
+  __$WeatherTargetEntityCopyWithImpl(this._self, this._then);
 
-  final _WeatherTarget _self;
-  final $Res Function(_WeatherTarget) _then;
+  final _WeatherTargetEntity _self;
+  final $Res Function(_WeatherTargetEntity) _then;
 
-/// Create a copy of WeatherTarget
+/// Create a copy of WeatherTargetEntity
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? area = null,Object? date = null,}) {
-  return _then(_WeatherTarget(
+  return _then(_WeatherTargetEntity(
 area: null == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,

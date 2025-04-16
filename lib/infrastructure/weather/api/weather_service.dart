@@ -9,13 +9,13 @@ class WeatherService {
 
   final YumemiWeather _yumemiWeather;
 
-  WeatherInfo fetchWeather(WeatherTarget weatherTarget) {
+  WeatherInfoEntity fetchWeather(WeatherTargetEntity weatherTarget) {
     final requestString = jsonEncode(weatherTarget.toJson());
     final responseString = _yumemiWeather.fetchWeather(requestString);
     final responseJson = jsonDecode(responseString);
 
     if (responseJson is Map<String, dynamic>) {
-      return WeatherInfo.fromJson(responseJson);
+      return WeatherInfoEntity.fromJson(responseJson);
     } else {
       throw const FormatException('Invalid weather data');
     }

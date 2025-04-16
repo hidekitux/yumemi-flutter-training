@@ -1,12 +1,12 @@
 import 'package:flutter_training/config/gen/assets.gen.dart';
 
-enum WeatherCondition {
+enum WeatherConditionEntity {
   sunny,
   cloudy,
   rainy;
 
-  factory WeatherCondition.fromString(String value) {
-    for (final item in WeatherCondition.values) {
+  factory WeatherConditionEntity.fromString(String value) {
+    for (final item in WeatherConditionEntity.values) {
       if (item.name == value) {
         return item;
       }
@@ -15,8 +15,8 @@ enum WeatherCondition {
   }
 
   String get svgPath => switch (this) {
-    WeatherCondition.sunny => Assets.images.sunny,
-    WeatherCondition.cloudy => Assets.images.cloudy,
-    WeatherCondition.rainy => Assets.images.rainy,
+    WeatherConditionEntity.sunny => Assets.images.sunny,
+    WeatherConditionEntity.cloudy => Assets.images.cloudy,
+    WeatherConditionEntity.rainy => Assets.images.rainy,
   };
 }
