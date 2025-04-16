@@ -1,17 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/application/weather/usecases/reload_weather_usecase.dart';
 import 'package:flutter_training/presentation/common/mixins/on_layout_built_mixin.dart';
 import 'package:flutter_training/presentation/weather/screens/weather_screen.dart';
 
 class InitialScreen extends StatefulWidget {
-  const InitialScreen({
-    required ReloadWeatherUseCase reloadWeatherUseCase,
-    super.key,
-  }) : _reloadWeatherUseCase = reloadWeatherUseCase;
-
-  final ReloadWeatherUseCase _reloadWeatherUseCase;
+  const InitialScreen({super.key});
 
   @override
   State<InitialScreen> createState() => _InitialScreenState();
@@ -27,12 +21,7 @@ class _InitialScreenState extends State<InitialScreen> with OnLayoutBuiltMixin {
     }
 
     await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder:
-            (context) => WeatherScreen(
-              reloadWeatherUseCase: widget._reloadWeatherUseCase,
-            ),
-      ),
+      MaterialPageRoute<void>(builder: (context) => const WeatherScreen()),
     );
 
     await onLayoutBuilt();
