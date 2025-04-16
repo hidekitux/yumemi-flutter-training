@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_training/application/usecases/reload_weather_usecase.dart';
+import 'package:flutter_training/application/weather/usecases/reload_weather_usecase.dart';
 import 'package:flutter_training/domain/weather/entities/weather_info_entity.dart';
-import 'package:flutter_training/presentation/components/error_dialog.dart';
-import 'package:flutter_training/presentation/components/temperature_indicator.dart';
-import 'package:flutter_training/presentation/components/weather_action_button.dart';
+import 'package:flutter_training/presentation/common/components/error_dialog.dart';
+import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
+import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({

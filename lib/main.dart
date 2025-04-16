@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/application/usecases/reload_weather_usecase.dart';
+import 'package:flutter_training/application/weather/usecases/reload_weather_usecase.dart';
 import 'package:flutter_training/infrastructure/weather/api/weather_service.dart';
 import 'package:flutter_training/infrastructure/weather/repositories/weather_repository.dart';
-import 'package:flutter_training/presentation/screens/initial_screen.dart';
+import 'package:flutter_training/presentation/common/screens/initial_screen.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 void main() {
