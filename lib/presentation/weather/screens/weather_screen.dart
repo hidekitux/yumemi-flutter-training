@@ -1,50 +1,44 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_training/application/weather/usecases/reload_weather_usecase.dart';
-import 'package:flutter_training/domain/weather/entities/weather_info_entity.dart';
 import 'package:flutter_training/presentation/common/components/error_dialog.dart';
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
+import 'package:flutter_training/presentation/weather/controllers/weather_screen_controller.dart';
+import 'package:flutter_training/presentation/weather/states/weather_screen_state.dart';
 
-class WeatherScreen extends StatefulWidget {
-  const WeatherScreen({
-    required ReloadWeatherUseCase reloadWeatherUseCase,
-    super.key,
-  }) : _reloadWeatherUseCase = reloadWeatherUseCase;
+class WeatherScreen extends ConsumerWidget {
+  const WeatherScreen({super.key});
 
-  final ReloadWeatherUseCase _reloadWeatherUseCase;
-
-  @override
-  State<WeatherScreen> createState() => _WeatherScreenState();
-}
-
-class _WeatherScreenState extends State<WeatherScreen> {
-  WeatherInfo? _weatherInfo;
-
-  void _closeWeather() => Navigator.of(context).pop();
-
-  Future<void> _showErrorDialog(String message) => showDialog<void>(
-    context: context,
-    builder: (context) {
-      return ErrorDialog(
-        title: 'エラーが発生しました',
-        message: message,
-        onOkPressed: Navigator.of(context).pop,
+  Future<void> _showErrorDialog(BuildContext context, String message) =>
+      showDialog<void>(
+        context: context,
+        builder: (context) {
+          return ErrorDialog(
+            title: 'エラーが発生しました',
+            message: message,
+            onOkPressed: Navigator.of(context).pop,
+          );
+        },
       );
-    },
-  );
 
-  void _reloadWeather() => widget._reloadWeatherUseCase.execute(
-    onSuccess: (weatherInfo) {
-      setState(() => _weatherInfo = weatherInfo);
-    },
-    onError: (message) => unawaited(_showErrorDialog(message)),
-  );
+  void _closeWeather(BuildContext context) => Navigator.of(context).pop();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<WeatherScreenState>(weatherScreenControllerProvider, (
+      previous,
+      next,
+    ) async {
+      if (next is WeatherScreenStateError) {
+        await _showErrorDialog(context, next.errorMessage);
+      }
+    });
+
+    final weatherInfo = ref.watch(weatherScreenControllerProvider);
+
     return Scaffold(
       body: Center(
         child: FractionallySizedBox(
@@ -55,9 +49,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
               AspectRatio(
                 aspectRatio: 1,
                 child:
-                    _weatherInfo != null
+                    weatherInfo.weatherCondition != null
                         ? SvgPicture.asset(
-                          _weatherInfo!.weatherCondition.svgPath,
+                          weatherInfo.weatherCondition!.svgPath,
                         )
                         : const Placeholder(),
               ),
@@ -66,11 +60,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 child: Row(
                   children: [
                     TemperatureIndicator(
-                      label: '${_weatherInfo?.minTemperature ?? '**'} ℃',
+                      label: '${weatherInfo.minTemperature} ℃',
                       color: Colors.blue,
                     ),
                     TemperatureIndicator(
-                      label: '${_weatherInfo?.maxTemperature ?? '**'} ℃',
+                      label: '${weatherInfo.maxTemperature} ℃',
                       color: Colors.red,
                     ),
                   ],
@@ -83,11 +77,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     children: [
                       WeatherActionButton(
                         label: 'Close',
-                        onPressed: _closeWeather,
+                        onPressed: () => _closeWeather(context),
                       ),
                       WeatherActionButton(
                         label: 'Reload',
-                        onPressed: _reloadWeather,
+                        onPressed:
+                            () =>
+                                ref
+                                    .read(
+                                      weatherScreenControllerProvider.notifier,
+                                    )
+                                    .reloadWeather(),
                       ),
                     ],
                   ),
