@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_training/presentation/common/components/error_dialog.dart';
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
-import 'package:flutter_training/presentation/weather/states/weather_screen_state.dart';
+import 'package:flutter_training/presentation/weather/states/weather_view_state.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
 
 class WeatherScreen extends ConsumerWidget {
@@ -28,11 +28,11 @@ class WeatherScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<WeatherScreenState>(weatherViewModelProvider, (
+    ref.listen<WeatherViewState>(weatherViewModelProvider, (
       previous,
       next,
     ) async {
-      if (next is WeatherScreenStateError) {
+      if (next is WeatherViewStateError) {
         await _showErrorDialog(context, next.errorMessage);
       }
     });
