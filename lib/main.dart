@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_training/presentation/common/screens/initial_screen.dart';
+import 'package:flutter_training/presentation/common/views/initial_view.dart';
 
 void main() {
   runApp(const ProviderScope(child: WeatherApp()));
@@ -11,6 +11,6 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: InitialScreen());
+    return const MaterialApp(home: InitialView());
   }
 }

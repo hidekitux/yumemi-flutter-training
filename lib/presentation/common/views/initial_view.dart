@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/presentation/common/mixins/on_layout_built_mixin.dart';
 import 'package:flutter_training/presentation/weather/views/weather_view.dart';
 
-class InitialScreen extends StatefulWidget {
-  const InitialScreen({super.key});
+class InitialView extends StatefulWidget {
+  const InitialView({super.key});
 
   @override
-  State<InitialScreen> createState() => _InitialScreenState();
+  State<InitialView> createState() => _InitialViewState();
 }
 
-class _InitialScreenState extends State<InitialScreen> with OnLayoutBuiltMixin {
+class _InitialViewState extends State<InitialView> with OnLayoutBuiltMixin {
   @override
   Future<void> onLayoutBuilt() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
