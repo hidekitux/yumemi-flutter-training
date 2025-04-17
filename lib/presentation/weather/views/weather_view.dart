@@ -9,8 +9,8 @@ import 'package:flutter_training/presentation/weather/components/weather_action_
 import 'package:flutter_training/presentation/weather/states/weather_view_state.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
 
-class WeatherScreen extends ConsumerWidget {
-  const WeatherScreen({super.key});
+class WeatherView extends ConsumerWidget {
+  const WeatherView({super.key});
 
   Future<void> _showErrorDialog(BuildContext context, String message) =>
       showDialog<void>(

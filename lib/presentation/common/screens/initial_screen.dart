@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_training/presentation/common/mixins/on_layout_built_mixin.dart';
-import 'package:flutter_training/presentation/weather/screens/weather_screen.dart';
+import 'package:flutter_training/presentation/weather/views/weather_view.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -20,9 +20,9 @@ class _InitialScreenState extends State<InitialScreen> with OnLayoutBuiltMixin {
       return;
     }
 
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (context) => const WeatherScreen()),
-    );
+    await Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (context) => const WeatherView()));
 
     await onLayoutBuilt();
   }
