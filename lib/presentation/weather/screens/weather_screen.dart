@@ -6,8 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_training/presentation/common/components/error_dialog.dart';
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
-import 'package:flutter_training/presentation/weather/controllers/weather_screen_controller.dart';
 import 'package:flutter_training/presentation/weather/states/weather_screen_state.dart';
+import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
 
 class WeatherScreen extends ConsumerWidget {
   const WeatherScreen({super.key});
@@ -28,7 +28,7 @@ class WeatherScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<WeatherScreenState>(weatherScreenControllerProvider, (
+    ref.listen<WeatherScreenState>(weatherViewModelProvider, (
       previous,
       next,
     ) async {
@@ -37,7 +37,7 @@ class WeatherScreen extends ConsumerWidget {
       }
     });
 
-    final weatherInfo = ref.watch(weatherScreenControllerProvider);
+    final weatherInfo = ref.watch(weatherViewModelProvider);
 
     return Scaffold(
       body: Center(
@@ -84,9 +84,7 @@ class WeatherScreen extends ConsumerWidget {
                         onPressed:
                             () =>
                                 ref
-                                    .read(
-                                      weatherScreenControllerProvider.notifier,
-                                    )
+                                    .read(weatherViewModelProvider.notifier)
                                     .reloadWeather(),
                       ),
                     ],

@@ -2,10 +2,10 @@ import 'package:flutter_training/application/weather/usecase_providers.dart';
 import 'package:flutter_training/presentation/weather/states/weather_screen_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'weather_screen_controller.g.dart';
+part 'weather_view_model.g.dart';
 
 @riverpod
-class WeatherScreenController extends _$WeatherScreenController {
+class WeatherViewModel extends _$WeatherViewModel {
   @override
   WeatherScreenState build() => const WeatherScreenState.data();
 
