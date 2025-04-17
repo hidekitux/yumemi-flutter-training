@@ -21,7 +21,7 @@ targets:
         generate_for:
           include:
             - "lib/{application,infrastructure}/**/*_providers.dart"
-            - "lib/presentation/**/controllers/*_controller.dart"
+            - "lib/presentation/**/view_models/*_view_model.dart"
       source_gen|combining_builder:
         options:
           ignore_for_file:
