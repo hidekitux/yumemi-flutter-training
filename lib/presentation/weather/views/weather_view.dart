@@ -37,7 +37,7 @@ class WeatherView extends ConsumerWidget {
       }
     });
 
-    final weatherInfo = ref.watch(weatherViewModelProvider);
+    final viewModel = ref.watch(weatherViewModelProvider);
 
     return Scaffold(
       body: Center(
@@ -49,10 +49,8 @@ class WeatherView extends ConsumerWidget {
               AspectRatio(
                 aspectRatio: 1,
                 child:
-                    weatherInfo.weatherCondition != null
-                        ? SvgPicture.asset(
-                          weatherInfo.weatherCondition!.svgPath,
-                        )
+                    viewModel.weatherCondition != null
+                        ? SvgPicture.asset(viewModel.weatherCondition!.svgPath)
                         : const Placeholder(),
               ),
               Padding(
@@ -60,11 +58,11 @@ class WeatherView extends ConsumerWidget {
                 child: Row(
                   children: [
                     TemperatureIndicator(
-                      label: '${weatherInfo.minTemperature} ℃',
+                      label: '${viewModel.minTemperature} ℃',
                       color: Colors.blue,
                     ),
                     TemperatureIndicator(
-                      label: '${weatherInfo.maxTemperature} ℃',
+                      label: '${viewModel.maxTemperature} ℃',
                       color: Colors.red,
                     ),
                   ],
