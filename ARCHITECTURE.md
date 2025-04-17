@@ -68,3 +68,5 @@ Flutter Docsの[Common architecture concepts](https://docs.flutter.dev/app-archi
 ### Domain
 
 - `Result`や`UseCase`、`Entity`を定義している
+  - 今までの開発において、[Clean Arhitecture and Riverpod](https://otakoyi.software/blog/flutter-clean-architecture-with-riverpod-and-supabase)の記事を参考にしていることが多いです。
+  - そのため、ModelではなくEntityにしています。
