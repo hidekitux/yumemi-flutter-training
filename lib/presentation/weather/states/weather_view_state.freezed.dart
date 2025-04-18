@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeatherViewState {
 
- WeatherConditionEntity? get weatherCondition; String get minTemperature; String get maxTemperature;
+ WeatherCondition? get weatherCondition; String get minTemperature; String get maxTemperature;
 /// Create a copy of WeatherViewState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -46,7 +46,7 @@ abstract mixin class $WeatherViewStateCopyWith<$Res>  {
   factory $WeatherViewStateCopyWith(WeatherViewState value, $Res Function(WeatherViewState) _then) = _$WeatherViewStateCopyWithImpl;
 @useResult
 $Res call({
- WeatherConditionEntity? weatherCondition, String minTemperature, String maxTemperature
+ WeatherCondition? weatherCondition, String minTemperature, String maxTemperature
 });
 
 
@@ -66,7 +66,7 @@ class _$WeatherViewStateCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? weatherCondition = freezed,Object? minTemperature = null,Object? maxTemperature = null,}) {
   return _then(_self.copyWith(
 weatherCondition: freezed == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
-as WeatherConditionEntity?,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
+as WeatherCondition?,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
 as String,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -82,7 +82,7 @@ class WeatherViewStateInitial implements WeatherViewState {
   const WeatherViewStateInitial({this.weatherCondition = null, this.minTemperature = '**', this.maxTemperature = '**'});
   
 
-@override@JsonKey() final  WeatherConditionEntity? weatherCondition;
+@override@JsonKey() final  WeatherCondition? weatherCondition;
 @override@JsonKey() final  String minTemperature;
 @override@JsonKey() final  String maxTemperature;
 
@@ -116,7 +116,7 @@ abstract mixin class $WeatherViewStateInitialCopyWith<$Res> implements $WeatherV
   factory $WeatherViewStateInitialCopyWith(WeatherViewStateInitial value, $Res Function(WeatherViewStateInitial) _then) = _$WeatherViewStateInitialCopyWithImpl;
 @override @useResult
 $Res call({
- WeatherConditionEntity? weatherCondition, String minTemperature, String maxTemperature
+ WeatherCondition? weatherCondition, String minTemperature, String maxTemperature
 });
 
 
@@ -136,7 +136,7 @@ class _$WeatherViewStateInitialCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? weatherCondition = freezed,Object? minTemperature = null,Object? maxTemperature = null,}) {
   return _then(WeatherViewStateInitial(
 weatherCondition: freezed == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
-as WeatherConditionEntity?,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
+as WeatherCondition?,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
 as String,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -152,7 +152,7 @@ class WeatherViewStateError implements WeatherViewState {
   const WeatherViewStateError({required this.weatherCondition, required this.minTemperature, required this.maxTemperature, required this.errorMessage});
   
 
-@override final  WeatherConditionEntity? weatherCondition;
+@override final  WeatherCondition? weatherCondition;
 @override final  String minTemperature;
 @override final  String maxTemperature;
  final  String errorMessage;
@@ -187,7 +187,7 @@ abstract mixin class $WeatherViewStateErrorCopyWith<$Res> implements $WeatherVie
   factory $WeatherViewStateErrorCopyWith(WeatherViewStateError value, $Res Function(WeatherViewStateError) _then) = _$WeatherViewStateErrorCopyWithImpl;
 @override @useResult
 $Res call({
- WeatherConditionEntity? weatherCondition, String minTemperature, String maxTemperature, String errorMessage
+ WeatherCondition? weatherCondition, String minTemperature, String maxTemperature, String errorMessage
 });
 
 
@@ -207,7 +207,7 @@ class _$WeatherViewStateErrorCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? weatherCondition = freezed,Object? minTemperature = null,Object? maxTemperature = null,Object? errorMessage = null,}) {
   return _then(WeatherViewStateError(
 weatherCondition: freezed == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
-as WeatherConditionEntity?,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
+as WeatherCondition?,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
 as String,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
 as String,errorMessage: null == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String,

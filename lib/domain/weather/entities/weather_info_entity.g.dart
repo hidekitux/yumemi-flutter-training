@@ -16,7 +16,7 @@ _WeatherInfoEntity _$WeatherInfoEntityFromJson(Map<String, dynamic> json) =>
         final val = _WeatherInfoEntity(
           weatherCondition: $checkedConvert(
             'weather_condition',
-            (v) => $enumDecode(_$WeatherConditionEntityEnumMap, v),
+            (v) => $enumDecode(_$WeatherConditionEnumMap, v),
           ),
           maxTemperature: $checkedConvert(
             'max_temperature',
@@ -37,17 +37,17 @@ _WeatherInfoEntity _$WeatherInfoEntityFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$WeatherInfoEntityToJson(_WeatherInfoEntity instance) =>
-    <String, dynamic>{
-      'weather_condition':
-          _$WeatherConditionEntityEnumMap[instance.weatherCondition]!,
-      'max_temperature': instance.maxTemperature,
-      'min_temperature': instance.minTemperature,
-      'date': instance.date.toIso8601String(),
-    };
+Map<String, dynamic> _$WeatherInfoEntityToJson(
+  _WeatherInfoEntity instance,
+) => <String, dynamic>{
+  'weather_condition': _$WeatherConditionEnumMap[instance.weatherCondition]!,
+  'max_temperature': instance.maxTemperature,
+  'min_temperature': instance.minTemperature,
+  'date': instance.date.toIso8601String(),
+};
 
-const _$WeatherConditionEntityEnumMap = {
-  WeatherConditionEntity.sunny: 'sunny',
-  WeatherConditionEntity.cloudy: 'cloudy',
-  WeatherConditionEntity.rainy: 'rainy',
+const _$WeatherConditionEnumMap = {
+  WeatherCondition.sunny: 'sunny',
+  WeatherCondition.cloudy: 'cloudy',
+  WeatherCondition.rainy: 'rainy',
 };

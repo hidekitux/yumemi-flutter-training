@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeatherInfoEntity {
 
- WeatherConditionEntity get weatherCondition; int get maxTemperature; int get minTemperature; DateTime get date;
+ WeatherCondition get weatherCondition; int get maxTemperature; int get minTemperature; DateTime get date;
 /// Create a copy of WeatherInfoEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $WeatherInfoEntityCopyWith<$Res>  {
   factory $WeatherInfoEntityCopyWith(WeatherInfoEntity value, $Res Function(WeatherInfoEntity) _then) = _$WeatherInfoEntityCopyWithImpl;
 @useResult
 $Res call({
- WeatherConditionEntity weatherCondition, int maxTemperature, int minTemperature, DateTime date
+ WeatherCondition weatherCondition, int maxTemperature, int minTemperature, DateTime date
 });
 
 
@@ -69,7 +69,7 @@ class _$WeatherInfoEntityCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? weatherCondition = null,Object? maxTemperature = null,Object? minTemperature = null,Object? date = null,}) {
   return _then(_self.copyWith(
 weatherCondition: null == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
-as WeatherConditionEntity,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
+as WeatherCondition,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
 as int,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
 as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -86,7 +86,7 @@ class _WeatherInfoEntity implements WeatherInfoEntity {
   const _WeatherInfoEntity({required this.weatherCondition, required this.maxTemperature, required this.minTemperature, required this.date});
   factory _WeatherInfoEntity.fromJson(Map<String, dynamic> json) => _$WeatherInfoEntityFromJson(json);
 
-@override final  WeatherConditionEntity weatherCondition;
+@override final  WeatherCondition weatherCondition;
 @override final  int maxTemperature;
 @override final  int minTemperature;
 @override final  DateTime date;
@@ -124,7 +124,7 @@ abstract mixin class _$WeatherInfoEntityCopyWith<$Res> implements $WeatherInfoEn
   factory _$WeatherInfoEntityCopyWith(_WeatherInfoEntity value, $Res Function(_WeatherInfoEntity) _then) = __$WeatherInfoEntityCopyWithImpl;
 @override @useResult
 $Res call({
- WeatherConditionEntity weatherCondition, int maxTemperature, int minTemperature, DateTime date
+ WeatherCondition weatherCondition, int maxTemperature, int minTemperature, DateTime date
 });
 
 
@@ -144,7 +144,7 @@ class __$WeatherInfoEntityCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? weatherCondition = null,Object? maxTemperature = null,Object? minTemperature = null,Object? date = null,}) {
   return _then(_WeatherInfoEntity(
 weatherCondition: null == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
-as WeatherConditionEntity,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
+as WeatherCondition,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
 as int,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
 as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,

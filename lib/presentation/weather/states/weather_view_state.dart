@@ -1,4 +1,4 @@
-import 'package:flutter_training/domain/weather/entities/weather_condition_entity.dart';
+import 'package:flutter_training/domain/weather/entities/weather_condition.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'weather_view_state.freezed.dart';
@@ -6,13 +6,13 @@ part 'weather_view_state.freezed.dart';
 @freezed
 sealed class WeatherViewState with _$WeatherViewState {
   const factory WeatherViewState.data({
-    @Default(null) WeatherConditionEntity? weatherCondition,
+    @Default(null) WeatherCondition? weatherCondition,
     @Default('**') String minTemperature,
     @Default('**') String maxTemperature,
   }) = WeatherViewStateInitial;
 
   const factory WeatherViewState.error({
-    required WeatherConditionEntity? weatherCondition,
+    required WeatherCondition? weatherCondition,
     required String minTemperature,
     required String maxTemperature,
     required String errorMessage,
