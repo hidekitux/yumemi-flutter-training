@@ -4,17 +4,13 @@ import 'package:flutter_training/domain/weather/entities/weather_info_entity.dar
 import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart';
 import 'package:flutter_training/infrastructure/weather/repositories/weather_repository.dart';
 
-class ReloadWeatherUseCase implements UseCase<WeatherInfoEntity> {
+class ReloadWeatherUseCase
+    implements UseCase<WeatherInfoEntity, WeatherTargetEntity> {
   const ReloadWeatherUseCase(this._weatherRepository);
 
   final WeatherRepository _weatherRepository;
 
   @override
-  Result<WeatherInfoEntity> execute() {
-    final weatherTarget = WeatherTargetEntity(
-      area: 'tokyo',
-      date: DateTime.now(),
-    );
-    return _weatherRepository.getWeather(weatherTarget);
-  }
+  Result<WeatherInfoEntity> execute(WeatherTargetEntity weatherTarget) =>
+      _weatherRepository.getWeather(weatherTarget);
 }
