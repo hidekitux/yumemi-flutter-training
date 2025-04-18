@@ -9,7 +9,7 @@ part 'weather_view_model.g.dart';
 @riverpod
 class WeatherViewModel extends _$WeatherViewModel {
   @override
-  WeatherViewState build() => const WeatherViewState.data();
+  WeatherViewState build() => const WeatherViewState();
 
   void reloadWeather() {
     final result = ref
@@ -18,18 +18,13 @@ class WeatherViewModel extends _$WeatherViewModel {
 
     switch (result) {
       case Success(value: final weatherInfo):
-        state = WeatherViewState.data(
-          weatherCondition: weatherInfo.weatherCondition,
+        state = state.copyWith(
+          errorMessage: null,
           minTemperature: weatherInfo.minTemperature.toString(),
           maxTemperature: weatherInfo.maxTemperature.toString(),
         );
       case Failure(message: final message):
-        state = WeatherViewState.error(
-          weatherCondition: state.weatherCondition,
-          minTemperature: state.minTemperature,
-          maxTemperature: state.maxTemperature,
-          errorMessage: message,
-        );
+        state = state.copyWith(errorMessage: message);
     }
   }
 }
