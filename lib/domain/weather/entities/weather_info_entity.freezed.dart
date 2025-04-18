@@ -14,22 +14,22 @@ part of 'weather_info_entity.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$WeatherInfo {
+mixin _$WeatherInfoEntity {
 
  WeatherCondition get weatherCondition; int get maxTemperature; int get minTemperature; DateTime get date;
-/// Create a copy of WeatherInfo
+/// Create a copy of WeatherInfoEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$WeatherInfoCopyWith<WeatherInfo> get copyWith => _$WeatherInfoCopyWithImpl<WeatherInfo>(this as WeatherInfo, _$identity);
+$WeatherInfoEntityCopyWith<WeatherInfoEntity> get copyWith => _$WeatherInfoEntityCopyWithImpl<WeatherInfoEntity>(this as WeatherInfoEntity, _$identity);
 
-  /// Serializes this WeatherInfo to a JSON map.
+  /// Serializes this WeatherInfoEntity to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherInfo&&(identical(other.weatherCondition, weatherCondition) || other.weatherCondition == weatherCondition)&&(identical(other.maxTemperature, maxTemperature) || other.maxTemperature == maxTemperature)&&(identical(other.minTemperature, minTemperature) || other.minTemperature == minTemperature)&&(identical(other.date, date) || other.date == date));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherInfoEntity&&(identical(other.weatherCondition, weatherCondition) || other.weatherCondition == weatherCondition)&&(identical(other.maxTemperature, maxTemperature) || other.maxTemperature == maxTemperature)&&(identical(other.minTemperature, minTemperature) || other.minTemperature == minTemperature)&&(identical(other.date, date) || other.date == date));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -38,15 +38,15 @@ int get hashCode => Object.hash(runtimeType,weatherCondition,maxTemperature,minT
 
 @override
 String toString() {
-  return 'WeatherInfo(weatherCondition: $weatherCondition, maxTemperature: $maxTemperature, minTemperature: $minTemperature, date: $date)';
+  return 'WeatherInfoEntity(weatherCondition: $weatherCondition, maxTemperature: $maxTemperature, minTemperature: $minTemperature, date: $date)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $WeatherInfoCopyWith<$Res>  {
-  factory $WeatherInfoCopyWith(WeatherInfo value, $Res Function(WeatherInfo) _then) = _$WeatherInfoCopyWithImpl;
+abstract mixin class $WeatherInfoEntityCopyWith<$Res>  {
+  factory $WeatherInfoEntityCopyWith(WeatherInfoEntity value, $Res Function(WeatherInfoEntity) _then) = _$WeatherInfoEntityCopyWithImpl;
 @useResult
 $Res call({
  WeatherCondition weatherCondition, int maxTemperature, int minTemperature, DateTime date
@@ -57,14 +57,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$WeatherInfoCopyWithImpl<$Res>
-    implements $WeatherInfoCopyWith<$Res> {
-  _$WeatherInfoCopyWithImpl(this._self, this._then);
+class _$WeatherInfoEntityCopyWithImpl<$Res>
+    implements $WeatherInfoEntityCopyWith<$Res> {
+  _$WeatherInfoEntityCopyWithImpl(this._self, this._then);
 
-  final WeatherInfo _self;
-  final $Res Function(WeatherInfo) _then;
+  final WeatherInfoEntity _self;
+  final $Res Function(WeatherInfoEntity) _then;
 
-/// Create a copy of WeatherInfo
+/// Create a copy of WeatherInfoEntity
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? weatherCondition = null,Object? maxTemperature = null,Object? minTemperature = null,Object? date = null,}) {
   return _then(_self.copyWith(
@@ -82,29 +82,29 @@ as DateTime,
 /// @nodoc
 @JsonSerializable()
 
-class _WeatherInfo implements WeatherInfo {
-  const _WeatherInfo({required this.weatherCondition, required this.maxTemperature, required this.minTemperature, required this.date});
-  factory _WeatherInfo.fromJson(Map<String, dynamic> json) => _$WeatherInfoFromJson(json);
+class _WeatherInfoEntity implements WeatherInfoEntity {
+  const _WeatherInfoEntity({required this.weatherCondition, required this.maxTemperature, required this.minTemperature, required this.date});
+  factory _WeatherInfoEntity.fromJson(Map<String, dynamic> json) => _$WeatherInfoEntityFromJson(json);
 
 @override final  WeatherCondition weatherCondition;
 @override final  int maxTemperature;
 @override final  int minTemperature;
 @override final  DateTime date;
 
-/// Create a copy of WeatherInfo
+/// Create a copy of WeatherInfoEntity
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$WeatherInfoCopyWith<_WeatherInfo> get copyWith => __$WeatherInfoCopyWithImpl<_WeatherInfo>(this, _$identity);
+_$WeatherInfoEntityCopyWith<_WeatherInfoEntity> get copyWith => __$WeatherInfoEntityCopyWithImpl<_WeatherInfoEntity>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$WeatherInfoToJson(this, );
+  return _$WeatherInfoEntityToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherInfo&&(identical(other.weatherCondition, weatherCondition) || other.weatherCondition == weatherCondition)&&(identical(other.maxTemperature, maxTemperature) || other.maxTemperature == maxTemperature)&&(identical(other.minTemperature, minTemperature) || other.minTemperature == minTemperature)&&(identical(other.date, date) || other.date == date));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherInfoEntity&&(identical(other.weatherCondition, weatherCondition) || other.weatherCondition == weatherCondition)&&(identical(other.maxTemperature, maxTemperature) || other.maxTemperature == maxTemperature)&&(identical(other.minTemperature, minTemperature) || other.minTemperature == minTemperature)&&(identical(other.date, date) || other.date == date));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -113,15 +113,15 @@ int get hashCode => Object.hash(runtimeType,weatherCondition,maxTemperature,minT
 
 @override
 String toString() {
-  return 'WeatherInfo(weatherCondition: $weatherCondition, maxTemperature: $maxTemperature, minTemperature: $minTemperature, date: $date)';
+  return 'WeatherInfoEntity(weatherCondition: $weatherCondition, maxTemperature: $maxTemperature, minTemperature: $minTemperature, date: $date)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$WeatherInfoCopyWith<$Res> implements $WeatherInfoCopyWith<$Res> {
-  factory _$WeatherInfoCopyWith(_WeatherInfo value, $Res Function(_WeatherInfo) _then) = __$WeatherInfoCopyWithImpl;
+abstract mixin class _$WeatherInfoEntityCopyWith<$Res> implements $WeatherInfoEntityCopyWith<$Res> {
+  factory _$WeatherInfoEntityCopyWith(_WeatherInfoEntity value, $Res Function(_WeatherInfoEntity) _then) = __$WeatherInfoEntityCopyWithImpl;
 @override @useResult
 $Res call({
  WeatherCondition weatherCondition, int maxTemperature, int minTemperature, DateTime date
@@ -132,17 +132,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$WeatherInfoCopyWithImpl<$Res>
-    implements _$WeatherInfoCopyWith<$Res> {
-  __$WeatherInfoCopyWithImpl(this._self, this._then);
+class __$WeatherInfoEntityCopyWithImpl<$Res>
+    implements _$WeatherInfoEntityCopyWith<$Res> {
+  __$WeatherInfoEntityCopyWithImpl(this._self, this._then);
 
-  final _WeatherInfo _self;
-  final $Res Function(_WeatherInfo) _then;
+  final _WeatherInfoEntity _self;
+  final $Res Function(_WeatherInfoEntity) _then;
 
-/// Create a copy of WeatherInfo
+/// Create a copy of WeatherInfoEntity
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? weatherCondition = null,Object? maxTemperature = null,Object? minTemperature = null,Object? date = null,}) {
-  return _then(_WeatherInfo(
+  return _then(_WeatherInfoEntity(
 weatherCondition: null == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
 as WeatherCondition,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
 as int,minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable

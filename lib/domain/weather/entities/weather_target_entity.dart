@@ -4,10 +4,12 @@ part 'weather_target_entity.freezed.dart';
 part 'weather_target_entity.g.dart';
 
 @freezed
-abstract class WeatherTarget with _$WeatherTarget {
-  const factory WeatherTarget({required String area, required DateTime date}) =
-      _WeatherTarget;
+abstract class WeatherTargetEntity with _$WeatherTargetEntity {
+  const factory WeatherTargetEntity({
+    required String area,
+    required DateTime date,
+  }) = _WeatherTargetEntity;
 
-  factory WeatherTarget.fromJson(Map<String, Object?> json) =>
-      _$WeatherTargetFromJson(json);
+  factory WeatherTargetEntity.fromJson(Map<String, Object?> json) =>
+      _$WeatherTargetEntityFromJson(json);
 }
