@@ -14,7 +14,7 @@ class WeatherViewModel extends _$WeatherViewModel {
   void reloadWeather() {
     final result = ref
         .read(reloadWeatherUseCaseProvider)
-        .execute(WeatherTargetEntity(area: 'Tokyo', date: DateTime.now()));
+        .call(WeatherTargetEntity(area: 'Tokyo', date: DateTime.now()));
 
     switch (result) {
       case Success(value: final weatherInfo):
