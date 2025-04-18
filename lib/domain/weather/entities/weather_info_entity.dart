@@ -1,4 +1,4 @@
-import 'package:flutter_training/domain/weather/entities/weather_condition.dart';
+import 'package:flutter_training/domain/weather/constants/weather_condition.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'weather_info_entity.freezed.dart';

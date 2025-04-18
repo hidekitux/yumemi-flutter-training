@@ -29,6 +29,7 @@ class WeatherView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<WeatherViewState>(weatherViewModelProvider, (_, next) async {
+      // WeatherViewStateがエラーになった場合にエラーダイアログを表示する
       if (next is WeatherViewStateError) {
         await _showErrorDialog(context, next.errorMessage);
       }
