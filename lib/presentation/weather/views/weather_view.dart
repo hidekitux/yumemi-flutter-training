@@ -31,7 +31,7 @@ class WeatherView extends ConsumerWidget {
       _,
       next,
     ) async {
-      /// errorMessageがnullでなければエラーダイアログを表示する
+      // errorMessageがnullでなければエラーダイアログを表示する
       if (next != null) {
         await _showErrorDialog(context, next);
       }
