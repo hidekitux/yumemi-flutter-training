@@ -23,6 +23,7 @@ class WeatherViewModel extends _$WeatherViewModel {
       case Success(value: final weatherInfo):
         state = state.copyWith(
           errorMessage: null,
+          weatherCondition: weatherInfo.weatherCondition,
           minTemperature: weatherInfo.minTemperature.toString(),
           maxTemperature: weatherInfo.maxTemperature.toString(),
         );
