@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/presentation/common/views/initial_view.dart';
+import 'package:flutter_training/presentation/startup/views/initial_view.dart';
 
 mixin OnLayoutBuiltMixin on State<InitialView> {
   @override

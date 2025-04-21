@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/presentation/common/mixins/on_layout_built_mixin.dart';
+import 'package:flutter_training/presentation/startup/mixins/on_layout_built_mixin.dart';
 import 'package:flutter_training/presentation/weather/views/weather_view.dart';
 
 class InitialView extends StatefulWidget {

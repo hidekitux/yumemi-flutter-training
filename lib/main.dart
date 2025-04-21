@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_training/presentation/common/views/initial_view.dart';
+import 'package:flutter_training/presentation/startup/views/initial_view.dart';
 
 void main() {
   runApp(const ProviderScope(child: WeatherApp()));
