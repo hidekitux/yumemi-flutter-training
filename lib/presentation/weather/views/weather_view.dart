@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_training/presentation/common/components/error_dialog.dart';
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
-import 'package:flutter_training/presentation/weather/states/weather_view_state.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
 
 class WeatherView extends ConsumerWidget {
@@ -28,10 +27,13 @@ class WeatherView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<WeatherViewState>(weatherViewModelProvider, (_, next) async {
-      // WeatherViewStateがエラーになった場合にエラーダイアログを表示する
-      if (next.errorMessage != null) {
-        await _showErrorDialog(context, next.errorMessage!);
+    ref.listen(weatherViewModelProvider.select((e) => e.errorMessage), (
+      _,
+      next,
+    ) async {
+      // errorMessageがnullでなければエラーダイアログを表示する
+      if (next != null) {
+        await _showErrorDialog(context, next);
       }
     });
 
