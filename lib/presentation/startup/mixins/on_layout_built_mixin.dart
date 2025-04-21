@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/presentation/startup/views/initial_view.dart';
+import 'package:flutter_training/presentation/startup/views/startup_view.dart';
 
-mixin OnLayoutBuiltMixin on State<InitialView> {
+mixin OnLayoutBuiltMixin on State<StartupView> {
   @override
   void initState() {
     super.initState();
