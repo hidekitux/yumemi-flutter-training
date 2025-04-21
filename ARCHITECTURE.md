@@ -78,7 +78,7 @@ lib
 ```
 
 [build.yaml](./build.yaml)では、freezed, json_serializable, riverpod_generatorの生成対象を制限しています。
-ビルド速度の向上もありますが、自動生成ファイルが乱立してディレクトリ構成が見られるのを防ぐ目的もあります。
+ビルド速度の向上もありますが、自動生成ファイルが乱立し、ディレクトリ構成の可読性低下を防ぐためのルールを明示化するという目的もあります。
 
 ### Presentation
 
@@ -108,13 +108,13 @@ lib
   - `WeatherService`から受け取ったデータをResult型に変換する
   - エラーハンドリングを行う
 - `WeatherService`
-  - `YumemiWeather`からデータを取得し、結果のJSONをWeatherInfoEntityに変換する
+  - `YumemiWeather`からデータを取得し、結果のJSONを`WeatherInfoEntity`に変換する
 
 ### Domain
 
 - `Result`や`UseCase`、`Entity`を定義している
-  - 今までの開発において、[Clean Arhitecture and Riverpod](https://otakoyi.software/blog/flutter-clean-architecture-with-riverpod-and-supabase)の記事を参考にしていることが多いです。
-  - そのため、ModelではなくEntityにしています。
+  - 今までの開発において、[Clean Architecture and Riverpod](https://otakoyi.software/blog/flutter-clean-architecture-with-riverpod-and-supabase)の記事を参考にしていることが多いです。
+  - そのため、`Model`ではなく`Entity`にしています。
 
 [riverpod_graph](https://github.com/rrousselGit/riverpod/tree/master/packages/riverpod_graph) を利用して自動生成しました。
 
