@@ -71,7 +71,7 @@ jobs:
           fatal-infos: true
 
       - name: Run test
-        run: flutter test --no-pub --machine > test_report.log
+        run: flutter test --coverage --no-pub --machine > test_report.log
         continue-on-error: true
 
       # https://github.com/dorny/test-reporter
@@ -82,3 +82,16 @@ jobs:
           path: 'test_report.log'
           reporter: 'flutter-json'
           fail-on-error: 'true'
+
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1
+
+      - name: Remove auto generated files from coverage
+        run: |
+          lcov --remove coverage/lcov.info
+          'lib/**/*.g.dart' 'lib/**/*.freezed.dart' 'lib/**/*.gen.dart' 'lib/**/*.mocks.dart'
+          -o coverage/lcov.info
+          --ignore-errors unused
+
+      - name: Report coverage to GitHub
+        uses: k1LoW/octocov-action@v1
