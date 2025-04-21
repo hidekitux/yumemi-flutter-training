@@ -34,9 +34,9 @@ lib
 │   │       └── usecase.dart
 │   └── weather
 │       ├── constants
+│       │   ├── weather_condition.dart
 │       │   └── weather_error_messages.dart
 │       └── entities
-│           ├── weather_condition_entity.dart
 │           ├── weather_info_entity.dart
 │           ├── weather_info_entity.freezed.dart
 │           ├── weather_info_entity.g.dart
@@ -56,22 +56,23 @@ lib
 ├── main.dart
 └── presentation
     ├── common
-    │   ├── components
-    │   │   └── error_dialog.dart
+    │   └── components
+    │       └── error_dialog.dart
+    ├── startup
     │   ├── mixins
     │   │   └── on_layout_built_mixin.dart
     │   └── views
-    │       └── initial_view.dart
+    │       └── startup_view.dart
     └── weather
         ├── components
         │   ├── temperature_indicator.dart
         │   └── weather_action_button.dart
-        ├── states
-        │   ├── weather_view_state.dart
-        │   └── weather_view_state.freezed.dart
         ├── view_models
         │   ├── weather_view_model.dart
         │   └── weather_view_model.g.dart
+        ├── view_states
+        │   ├── weather_view_state.dart
+        │   └── weather_view_state.freezed.dart
         └── views
             └── weather_view.dart
 ```
