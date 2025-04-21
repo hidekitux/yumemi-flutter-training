@@ -7,21 +7,21 @@ targets:
       freezed:
         generate_for:
           include:
-            - "lib/domain/**/entities/*_entity.dart"
-            - "lib/presentation/**/view_states/*_state.dart"
+            - lib/domain/**/entities/*_entity.dart
+            - lib/presentation/**/view_states/*_state.dart
       json_serializable:
         generate_for:
           include:
-            - "lib/domain/**/entities/*_entity.dart"
-            - "lib/presentation/**/view_states/*_state.dart"
+            - lib/domain/**/entities/*_entity.dart
+            - lib/presentation/**/view_states/*_state.dart
         options:
           checked: true
           field_rename: snake
       riverpod_generator:
         generate_for:
           include:
-            - "lib/{application,infrastructure}/**/*_providers.dart"
-            - "lib/presentation/**/view_models/*_view_model.dart"
+            - lib/{application,infrastructure}/**/*_providers.dart
+            - lib/presentation/**/view_models/*_view_model.dart
       source_gen|combining_builder:
         options:
           ignore_for_file:
