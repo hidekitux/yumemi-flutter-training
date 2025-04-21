@@ -1,7 +1,7 @@
 import 'package:flutter_training/application/weather/usecase_providers.dart';
 import 'package:flutter_training/domain/common/interfaces/result.dart';
 import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart';
-import 'package:flutter_training/presentation/weather/states/weather_view_state.dart';
+import 'package:flutter_training/presentation/weather/view_states/weather_view_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'weather_view_model.g.dart';
@@ -11,9 +11,9 @@ class WeatherViewModel extends _$WeatherViewModel {
   @override
   WeatherViewState build() => const WeatherViewState();
 
-  // 天気予報を取得し、実行可否でstateを更新する
-  // - 成功時: 取得した内容で表示内容を更新する
-  // - 失敗時: message以外はstateを更新しない
+  // 天気予報を取得し、実行結果に応じてstateを更新する
+  // - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する
+  // - 失敗時: 元の天気予報を保持しながら、エラーメッセージでstateを更新する
   void reloadWeather() {
     final result = ref
         .read(reloadWeatherUseCaseProvider)

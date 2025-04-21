@@ -34,9 +34,9 @@ lib
 │   │       └── usecase.dart
 │   └── weather
 │       ├── constants
+│       │   ├── weather_condition.dart
 │       │   └── weather_error_messages.dart
 │       └── entities
-│           ├── weather_condition_entity.dart
 │           ├── weather_info_entity.dart
 │           ├── weather_info_entity.freezed.dart
 │           ├── weather_info_entity.g.dart
@@ -56,22 +56,23 @@ lib
 ├── main.dart
 └── presentation
     ├── common
-    │   ├── components
-    │   │   └── error_dialog.dart
+    │   └── components
+    │       └── error_dialog.dart
+    ├── startup
     │   ├── mixins
     │   │   └── on_layout_built_mixin.dart
     │   └── views
-    │       └── initial_view.dart
+    │       └── startup_view.dart
     └── weather
         ├── components
         │   ├── temperature_indicator.dart
         │   └── weather_action_button.dart
-        ├── states
-        │   ├── weather_view_state.dart
-        │   └── weather_view_state.freezed.dart
         ├── view_models
         │   ├── weather_view_model.dart
         │   └── weather_view_model.g.dart
+        ├── view_states
+        │   ├── weather_view_state.dart
+        │   └── weather_view_state.freezed.dart
         └── views
             └── weather_view.dart
 ```
@@ -81,27 +82,33 @@ lib
 
 ### Presentation
 
+- `StartupView`
+  - アプリ起動時に開かれ、緑色背景のみの画面を表示する
+  - 画面が表示された500ms後に`WeatherView`に遷移する
+  - `WeatherView`で戻る操作をした場合、`StartupView`に戻って再度遷移処理が行われる
 - `WeatherView`
-    - UI (BuildContext)を扱うような関数はView内に定義している
-    - Reloadボタンを押した際に`WeatherViewModel`の`reloadWeather`関数を実行する
-    - 実行後、成功した場合に`WeatherViewModel`の状態を更新して、天気予報の情報を更新する
-    - 実行後、エラーが発生した場合に`WeatherView`内でエラーダイアログを表示する
+  - UI (BuildContext)を扱うような関数はView内に定義している
+  - Reloadボタンを押した際に`WeatherViewModel`の`reloadWeather`関数を実行する
+    - `WeatherViewModel`をwatchし、成功した場合に取得した天気予報をUIに反映する
+    - エラーメッセージの有無をlistenし、エラーが発生した場合はエラーダイアログを表示する
 - `WeatherViewModel`
-    - `reloadWeather`関数が実行されると、`ReloadWeatherUseCase`の`execute`関数を実行する
-    - 成功した場合と失敗した場合で状態を更新する
+  - `reloadWeather`関数が実行されると、`ReloadWeatherUseCase`の`call`関数を実行する
+  - 処理結果（成功・失敗）に応じて、天気予報やエラーメッセージなどを更新する
+    - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する
+    - 失敗時: 元の天気予報を保持しながら、エラーメッセージでstateを更新する
 
 ### Application
 
 - `ReloadWeatherUseCase`
-    - `WeatherRepository`からデータを取得して結果を`WeatherViewModel`に返す
+  - `WeatherRepository`からデータを取得して結果を`WeatherViewModel`に返す
 
 ### Infrastructure
 
 - `WeatherRepository`
-    - `WeatherService`から受け取ったデータをResult型に変換する
-    - エラーハンドリングを行う
+  - `WeatherService`から受け取ったデータをResult型に変換する
+  - エラーハンドリングを行う
 - `WeatherService`
-    - `YumemiWeather`からデータを取得し、結果のJSONをMapに変換する
+  - `YumemiWeather`からデータを取得し、結果のJSONをWeatherInfoEntityに変換する
 
 ### Domain
 

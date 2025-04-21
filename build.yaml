@@ -8,12 +8,12 @@ targets:
         generate_for:
           include:
             - "lib/domain/**/entities/*_entity.dart"
-            - "lib/presentation/**/states/*_state.dart"
+            - "lib/presentation/**/view_states/*_state.dart"
       json_serializable:
         generate_for:
           include:
             - "lib/domain/**/entities/*_entity.dart"
-            - "lib/presentation/**/states/*_state.dart"
+            - "lib/presentation/**/view_states/*_state.dart"
         options:
           checked: true
           field_rename: snake
