@@ -7,6 +7,7 @@ import 'package:flutter_training/domain/common/interfaces/result.dart';
 import 'package:flutter_training/domain/weather/entities/weather_info_entity.dart';
 import 'package:flutter_training/infrastructure/weather/repositories/weather_repository.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
+import 'package:flutter_training/presentation/weather/view_states/weather_view_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -45,6 +46,14 @@ void main() {
 
   tearDown(() {
     container.dispose();
+  });
+
+  test('weatherViewModelProvider returns WeatherViewState when read', () {
+    // Act
+    final state = container.read(weatherViewModelProvider);
+
+    // Assert
+    expect(state, isA<WeatherViewState>());
   });
 
   test('reloadWeather updates state successfully', () {
