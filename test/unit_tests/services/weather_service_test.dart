@@ -28,6 +28,9 @@ void main() {
 
     // Assert
     expect(service, isA<WeatherService>());
+
+    // Clean up
+    container.dispose();
   });
 
   test('fetchWeather returns expected weather info, if API call succeeds', () {

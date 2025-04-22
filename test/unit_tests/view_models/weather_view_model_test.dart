@@ -43,6 +43,10 @@ void main() {
     );
   });
 
+  tearDown(() {
+    container.dispose();
+  });
+
   test('reloadWeather updates state successfully', () {
     // Arrange
     final viewModel = container.read(weatherViewModelProvider.notifier);

@@ -35,6 +35,9 @@ void main() {
 
     // Assert
     expect(useCase, isA<ReloadWeatherUseCase>());
+
+    // Clean up
+    container.dispose();
   });
 
   test('call returns expected weather info, if API call succeeds', () {

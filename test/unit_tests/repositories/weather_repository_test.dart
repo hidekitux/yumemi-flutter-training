@@ -33,6 +33,9 @@ void main() {
 
     // Assert
     expect(repository, isA<WeatherRepository>());
+
+    // Clean up
+    container.dispose();
   });
 
   test('getWeather returns expected weather info, if API call succeeds', () {
