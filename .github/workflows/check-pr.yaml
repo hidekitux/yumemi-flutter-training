@@ -88,9 +88,9 @@ jobs:
 
       - name: Remove auto generated files from coverage
         run: |
-          lcov --remove coverage/lcov.info
-          'lib/**/*.g.dart' 'lib/**/*.freezed.dart' 'lib/**/*.gen.dart' 'lib/**/*.mocks.dart'
-          -o coverage/lcov.info
+          lcov --remove coverage/lcov.info \
+          'lib/**/*.g.dart' 'lib/**/*.freezed.dart' 'lib/**/*.gen.dart' 'lib/**/*.mocks.dart' \
+          -o coverage/lcov.info \
           --ignore-errors unused
 
       - name: Report coverage to GitHub
