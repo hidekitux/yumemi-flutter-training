@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderContainer;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/application/weather/usecase_providers.dart';
 import 'package:flutter_training/application/weather/usecases/reload_weather_usecase.dart';
