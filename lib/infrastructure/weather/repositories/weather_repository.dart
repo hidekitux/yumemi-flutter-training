@@ -12,7 +12,7 @@ class WeatherRepository {
 
   final WeatherService _weatherService;
 
-  Result<WeatherInfo> getWeather(WeatherTarget weatherTarget) {
+  Result<WeatherInfoEntity> getWeather(WeatherTargetEntity weatherTarget) {
     try {
       final weatherInfo = _weatherService.fetchWeather(weatherTarget);
       return Success(weatherInfo);
