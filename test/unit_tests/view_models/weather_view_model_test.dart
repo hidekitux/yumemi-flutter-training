@@ -52,7 +52,7 @@ void main() {
     final state = container.read(weatherViewModelProvider);
 
     // Assert
-    expect(state, isA<WeatherViewState>());
+    expect(state, const WeatherViewState());
   });
 
   test('reloadWeather updates state successfully', () {
