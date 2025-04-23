@@ -52,7 +52,7 @@ void main() {
     expect(
       result,
       isA<Success<WeatherInfoEntity>>().having(
-        (e) => e.value,
+        (success) => success.value,
         'having value equal to expectedWeatherInfo',
         expectedWeatherInfo,
       ),
@@ -72,8 +72,8 @@ void main() {
       expect(
         result,
         isA<Failure<WeatherInfoEntity>>().having(
-          (e) => e.message,
-          'check message',
+          (failure) => failure.message,
+          'having message equal to $error',
           error.message,
         ),
       );
@@ -97,7 +97,7 @@ void main() {
       result,
       isA<Failure<WeatherInfoEntity>>().having(
         (failure) => failure.message,
-        'check message',
+        'having message equal to ${CommonErrorMessages.unknown.message}',
         CommonErrorMessages.unknown.message,
       ),
     );
