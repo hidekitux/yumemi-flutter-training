@@ -21,9 +21,7 @@ Widget _createWidget({
 }
 
 void main() {
-  testWidgets('title, message, and OK / Cancel buttons are displayed', (
-    tester,
-  ) async {
+  testWidgets('title, message, and OK buttons are displayed', (tester) async {
     // Arrange
     await tester.pumpWidget(_createWidget());
 
@@ -47,7 +45,7 @@ void main() {
     );
 
     // Act
-    await tester.tap(find.widgetWithText(TextButton, 'OK'));
+    await tester.tap(find.widgetWithText(TextButton, _textOkButton));
     await tester.pump();
 
     // Assert
