@@ -32,7 +32,6 @@ void main() {
   final expectedFailureResult = Failure<WeatherInfoEntity>(
     expectedErrorMessage,
   );
-  const placeholderTemperature = '**';
 
   setUp(() {
     mockWeatherRepository = MockWeatherRepository();
@@ -97,6 +96,7 @@ void main() {
     viewModel.reloadWeather();
 
     // Assert
+    const placeholderTemperature = '**';
     expect(viewModel.state.errorMessage, expectedErrorMessage);
     expect(viewModel.state.weatherCondition, null);
     expect(viewModel.state.minTemperature, placeholderTemperature);
