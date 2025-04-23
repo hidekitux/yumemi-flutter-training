@@ -61,18 +61,16 @@ void main() {
   for (final error in YumemiWeatherError.values) {
     test('getWeather returns Failure, if API throws $error', () {
       // Arrange
-      late Result<WeatherInfoEntity> result;
       when(mockWeatherService.fetchWeather(any)).thenThrow(error);
 
-      // Act and Assert
-      expect(
-        () => result = weatherRepository.getWeather(weatherTarget),
-        returnsNormally,
-      );
+      // Act
+      final result = weatherRepository.getWeather(weatherTarget);
+
+      // Assert
       expect(
         result,
         isA<Failure<WeatherInfoEntity>>().having(
-          (e) => (e as Failure).message,
+          (e) => e.message,
           'check message',
           error.message,
         ),
