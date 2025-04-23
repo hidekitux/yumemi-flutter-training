@@ -80,10 +80,14 @@ class WeatherView extends ConsumerWidget {
                       WeatherActionButton(
                         label: 'Reload',
                         onPressed:
-                            () =>
-                                ref
-                                    .read(weatherViewModelProvider.notifier)
-                                    .reloadWeather(),
+                            () => ref
+                                .read(weatherViewModelProvider.notifier)
+                                .reloadWeather(
+                                  WeatherTargetEntity(
+                                    area: 'Tokyo',
+                                    date: DateTime.now(),
+                                  ),
+                                ),
                       ),
                     ],
                   ),
