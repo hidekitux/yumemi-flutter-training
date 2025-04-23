@@ -41,7 +41,9 @@ void main() {
   test('getWeather returns expected weather info, if API call succeeds', () {
     // Arrange
     final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
-    when(mockWeatherService.fetchWeather(any)).thenReturn(expectedWeatherInfo);
+    when(
+      mockWeatherService.fetchWeather(weatherTarget),
+    ).thenReturn(expectedWeatherInfo);
 
     // Act
     final result = weatherRepository.getWeather(weatherTarget);
@@ -61,7 +63,7 @@ void main() {
   for (final error in YumemiWeatherError.values) {
     test('getWeather returns Failure, if API throws $error', () {
       // Arrange
-      when(mockWeatherService.fetchWeather(any)).thenThrow(error);
+      when(mockWeatherService.fetchWeather(weatherTarget)).thenThrow(error);
 
       // Act
       final result = weatherRepository.getWeather(weatherTarget);
@@ -83,7 +85,7 @@ void main() {
     // Arrange
     late Result<WeatherInfoEntity> result;
     when(
-      mockWeatherService.fetchWeather(any),
+      mockWeatherService.fetchWeather(weatherTarget),
     ).thenThrow(const FormatException());
 
     // Act and Assert
