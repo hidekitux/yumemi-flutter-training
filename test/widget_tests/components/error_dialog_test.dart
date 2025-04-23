@@ -5,7 +5,6 @@ import 'package:flutter_training/presentation/common/components/error_dialog.dar
 const _textTitle = 'エラーが発生しました';
 const _textMessage = 'エラーが発生しました。しばらくお待ちください。';
 const _textOkButton = 'OK';
-const _textCancelButton = 'キャンセル';
 
 Widget _createWidget({
   String? title,
