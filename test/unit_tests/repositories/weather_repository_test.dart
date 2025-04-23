@@ -47,9 +47,14 @@ void main() {
     final result = weatherRepository.getWeather(weatherTarget);
 
     // Assert
-    expect(result, isA<Success<WeatherInfoEntity>>());
-    final weatherInfo = (result as Success<WeatherInfoEntity>).value;
-    expect(weatherInfo, equals(expectedWeatherInfo));
+    expect(
+      result,
+      isA<Success<WeatherInfoEntity>>().having(
+        (e) => e.value,
+        'having value equal to expectedWeatherInfo',
+        expectedWeatherInfo,
+      ),
+    );
     verify(mockWeatherService.fetchWeather(weatherTarget)).called(1);
   });
 
