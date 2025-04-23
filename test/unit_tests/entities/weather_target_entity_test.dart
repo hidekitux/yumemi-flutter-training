@@ -24,6 +24,6 @@ void main() {
     final weatherTarget = WeatherTargetEntity.fromJson(expectedJson);
 
     // Assert
-    expect(weatherTarget, equals(expectedWeatherTarget));
+    expect(weatherTarget, expectedWeatherTarget);
   });
 }

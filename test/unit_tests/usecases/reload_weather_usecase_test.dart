@@ -55,7 +55,7 @@ void main() {
     // Assert
     expect(result, isA<Success<WeatherInfoEntity>>());
     final weatherInfo = (result as Success<WeatherInfoEntity>).value;
-    expect(weatherInfo, equals(expectedWeatherInfo));
+    expect(weatherInfo, expectedWeatherInfo);
     verify(mockWeatherRepository.getWeather(weatherTarget)).called(1);
   });
 

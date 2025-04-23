@@ -45,7 +45,7 @@ void main() {
     final weatherInfo = weatherService.fetchWeather(weatherTarget);
 
     // Assert
-    expect(weatherInfo, equals(expectedWeatherInfo));
+    expect(weatherInfo, expectedWeatherInfo);
     verify(mockYumemiWeather.fetchWeather(weatherTargetJson)).called(1);
   });
 
