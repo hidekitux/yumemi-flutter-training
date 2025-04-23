@@ -17,10 +17,16 @@ void main() {
   });
 
   test('fromString throws Exception, if value is invalid', () {
+    // Arrange
+    const invalidString = 'invalid';
+    bool isInvalidWeatherConditionException(Object e) =>
+        e is Exception &&
+        e.toString().contains('Invalid WeatherCondition: $invalidString');
+
     // Act and Assert
     expect(
-      () => WeatherCondition.fromString('invalid'),
-      throwsA(isA<Exception>()),
+      () => WeatherCondition.fromString(invalidString),
+      throwsA(predicate(isInvalidWeatherConditionException)),
     );
   });
 
