@@ -53,31 +53,34 @@ void main() {
     final result = reloadWeatherUseCase.call(weatherTarget);
 
     // Assert
-    expect(result, isA<Success<WeatherInfoEntity>>());
-    final weatherInfo = (result as Success<WeatherInfoEntity>).value;
-    expect(weatherInfo, expectedWeatherInfo);
+    expect(
+      result,
+      isA<Success<WeatherInfoEntity>>().having(
+        (success) => success.value,
+        'having value equal to expectedWeatherInfo',
+        expectedWeatherInfo,
+      ),
+    );
     verify(mockWeatherRepository.getWeather(weatherTarget)).called(1);
   });
 
   for (final error in YumemiWeatherError.values) {
     test('call returns Failure, if API throws $error', () {
       // Arrange
-      late Result<WeatherInfoEntity> result;
       final expectedResult = Failure<WeatherInfoEntity>(error.message);
       when(
         mockWeatherRepository.getWeather(weatherTarget),
       ).thenReturn(expectedResult);
 
-      // Act and Assert
-      expect(
-        () => result = reloadWeatherUseCase.call(weatherTarget),
-        returnsNormally,
-      );
+      // Act
+      final result = reloadWeatherUseCase.call(weatherTarget);
+
+      // Assert
       expect(
         result,
         isA<Failure<WeatherInfoEntity>>().having(
-          (e) => (e as Failure).message,
-          'check message',
+          (failure) => failure.message,
+          'having message equal to ${error.message}',
           error.message,
         ),
       );
@@ -87,7 +90,6 @@ void main() {
 
   test('call returns Failure, if API returns invalid data', () {
     // Arrange
-    late Result<WeatherInfoEntity> result;
     final expectedResult = Failure<WeatherInfoEntity>(
       CommonErrorMessages.unknown.message,
     );
@@ -95,16 +97,15 @@ void main() {
       mockWeatherRepository.getWeather(weatherTarget),
     ).thenReturn(expectedResult);
 
-    // Act and Assert
-    expect(
-      () => result = reloadWeatherUseCase.call(weatherTarget),
-      returnsNormally,
-    );
+    // Act
+    final result = reloadWeatherUseCase.call(weatherTarget);
+
+    // Assert
     expect(
       result,
       isA<Failure<WeatherInfoEntity>>().having(
-        (e) => (e as Failure).message,
-        'check message',
+        (failure) => failure.message,
+        'having message equal to ${CommonErrorMessages.unknown.message}',
         CommonErrorMessages.unknown.message,
       ),
     );
