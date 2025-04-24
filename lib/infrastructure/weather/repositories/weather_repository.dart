@@ -12,10 +12,12 @@ class WeatherRepository {
 
   final WeatherService _weatherService;
 
-  Result<WeatherInfoEntity> getWeather(WeatherTargetEntity weatherTarget) {
+  Future<Result<WeatherInfoEntity>> getWeather(
+    WeatherTargetEntity weatherTarget,
+  ) async {
     try {
       final weatherInfo = _weatherService.fetchWeather(weatherTarget);
-      return Success(weatherInfo);
+      return Success(await weatherInfo);
     } on YumemiWeatherError catch (error, stackTrace) {
       if (kDebugMode) {
         debugPrint(error.toString());
