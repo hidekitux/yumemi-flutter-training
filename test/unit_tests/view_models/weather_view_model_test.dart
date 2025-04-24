@@ -14,8 +14,6 @@ import 'package:mockito/mockito.dart';
 import '../../fixtures/weather_fixtures.dart';
 import 'weather_view_model_test.mocks.dart';
 
-/// TODO: verifyでgetWeather(expectedWeatherTarget)がエラーになるのを解決する
-/// WeatherViewModel内部でDateTime.now()が使われており、時間を変更するとテストが失敗する
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 void main() {
   // Arrange
