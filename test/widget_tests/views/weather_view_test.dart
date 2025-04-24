@@ -45,7 +45,8 @@ class _WeatherViewRobot {
 
   Future<void> tapReloadButton() async {
     await tester.tap(find.widgetWithText(WeatherActionButton, 'Reload'));
-    await tester.pumpAndSettle();
+    // pumpAndSettleではエラーが発生するため
+    await tester.pump(const Duration(milliseconds: 500));
   }
 
   Future<void> tapCloseButton() async {
@@ -61,6 +62,10 @@ class _WeatherViewRobot {
   Future<void> checkPlaceholders() async {
     expect(find.byType(Placeholder), findsOneWidget);
     expect(find.widgetWithText(TemperatureIndicator, '** ℃'), findsNWidgets(2));
+  }
+
+  Future<void> checkLoadingIndicator(Matcher matcher) async {
+    expect(find.byType(CircularProgressIndicator), matcher);
   }
 
   Future<void> checkWeatherCondition(WeatherCondition weatherCondition) async {
@@ -105,6 +110,22 @@ void main() {
 
     // Act and Assert
     await robot.checkPlaceholders();
+    await robot.tearDown();
+  });
+
+  testWidgets('When the reload button is tapped, loading indicator appears', (
+    tester,
+  ) async {
+    // Arrange
+    final robot = _WeatherViewRobot(tester);
+    await robot.setUp();
+    await robot.checkLoadingIndicator(findsNothing);
+
+    // Act
+    await robot.tapReloadButton();
+
+    // Assert
+    await robot.checkLoadingIndicator(findsOneWidget);
     await robot.tearDown();
   });
 
