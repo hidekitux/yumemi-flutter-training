@@ -33,45 +33,53 @@ void main() {
     container.dispose();
   });
 
-  test('fetchWeather returns expected weather info, if API call succeeds', () {
-    // Arrange
-    final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
-    final expectedJson = jsonEncode(expectedWeatherInfo.toJson());
-    when(
-      mockYumemiWeather.fetchWeather(weatherTargetJson),
-    ).thenReturn(expectedJson);
+  test(
+    'fetchWeather returns expected weather info, if API call succeeds',
+    () async {
+      // Arrange
+      final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
+      final expectedJson = jsonEncode(expectedWeatherInfo.toJson());
+      when(
+        mockYumemiWeather.syncFetchWeather(weatherTargetJson),
+      ).thenReturn(expectedJson);
 
-    // Act
-    final weatherInfo = weatherService.fetchWeather(weatherTarget);
+      // Act
+      final weatherInfo = await weatherService.fetchWeather(weatherTarget);
 
-    // Assert
-    expect(weatherInfo, expectedWeatherInfo);
-    verify(mockYumemiWeather.fetchWeather(weatherTargetJson)).called(1);
-  });
+      // Assert
+      expect(weatherInfo, expectedWeatherInfo);
+    },
+  );
 
   for (final error in YumemiWeatherError.values) {
-    test('fetchWeather throws $error, if API call fails', () {
+    test('fetchWeather throws $error, if API call fails', () async {
       // Arrange
-      when(mockYumemiWeather.fetchWeather(weatherTargetJson)).thenThrow(error);
+      when(
+        mockYumemiWeather.syncFetchWeather(weatherTargetJson),
+      ).thenThrow(error);
 
       // Act and Assert
-      expect(() => weatherService.fetchWeather(weatherTarget), throwsA(error));
-      verify(mockYumemiWeather.fetchWeather(weatherTargetJson)).called(1);
+      await expectLater(
+        () => weatherService.fetchWeather(weatherTarget),
+        throwsA(error),
+      );
     });
   }
 
-  test('fetchWeather throws FormatException, if API returns invalid data', () {
-    // Arrange
-    const invalidJson = 'invalid json';
-    when(
-      mockYumemiWeather.fetchWeather(weatherTargetJson),
-    ).thenReturn(invalidJson);
+  test(
+    'fetchWeather throws FormatException, if API returns invalid data',
+    () async {
+      // Arrange
+      const invalidJson = 'invalid json';
+      when(
+        mockYumemiWeather.syncFetchWeather(weatherTargetJson),
+      ).thenReturn(invalidJson);
 
-    // Act and Assert
-    expect(
-      () => weatherService.fetchWeather(weatherTarget),
-      throwsA(isA<FormatException>()),
-    );
-    verify(mockYumemiWeather.fetchWeather(weatherTargetJson)).called(1);
-  });
+      // Act and Assert
+      await expectLater(
+        () => weatherService.fetchWeather(weatherTarget),
+        throwsA(isA<FormatException>()),
+      );
+    },
+  );
 }

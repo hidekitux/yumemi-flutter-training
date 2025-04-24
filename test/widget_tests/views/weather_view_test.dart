@@ -131,7 +131,7 @@ void main() {
       provideDummy<Result<WeatherInfoEntity>>(expectedResult);
       when(
         mockWeatherRepository.getWeather(expectedWeatherTarget),
-      ).thenReturn(expectedResult);
+      ).thenAnswer((_) => Future.value(expectedResult));
 
       // Act
       await robot.tapReloadButton();
@@ -165,7 +165,7 @@ void main() {
     provideDummy<Result<WeatherInfoEntity>>(expectedResult);
     when(
       mockWeatherRepository.getWeather(expectedWeatherTarget),
-    ).thenReturn(expectedResult);
+    ).thenAnswer((_) => Future.value(expectedResult));
 
     // Act
     await robot.tapReloadButton();
@@ -197,7 +197,7 @@ void main() {
         provideDummy<Result<WeatherInfoEntity>>(expectedError);
         when(
           mockWeatherRepository.getWeather(expectedWeatherTarget),
-        ).thenReturn(expectedError);
+        ).thenAnswer((_) => Future.value(expectedError));
 
         // Act
         await robot.tapReloadButton();

@@ -3,16 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter_training/domain/common/interfaces/result.dart' as _i3;
+import 'dart:async' as _i3;
+
+import 'package:flutter_training/domain/common/interfaces/result.dart' as _i4;
 import 'package:flutter_training/domain/weather/entities/weather_info_entity.dart'
-    as _i4;
-import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart'
     as _i5;
+import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart'
+    as _i6;
 import 'package:flutter_training/infrastructure/weather/repositories/weather_repository.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i6;
-import 'package:yumemi_weather/yumemi_weather.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:yumemi_weather/yumemi_weather.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -33,37 +35,41 @@ import 'package:yumemi_weather/yumemi_weather.dart' as _i7;
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherRepository extends _i1.Mock implements _i2.WeatherRepository {
   @override
-  _i3.Result<_i4.WeatherInfoEntity> getWeather(
-    _i5.WeatherTargetEntity? weatherTarget,
+  _i3.Future<_i4.Result<_i5.WeatherInfoEntity>> getWeather(
+    _i6.WeatherTargetEntity? weatherTarget,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#getWeather, [weatherTarget]),
-            returnValue: _i6.dummyValue<_i3.Result<_i4.WeatherInfoEntity>>(
-              this,
-              Invocation.method(#getWeather, [weatherTarget]),
+            returnValue: _i3.Future<_i4.Result<_i5.WeatherInfoEntity>>.value(
+              _i7.dummyValue<_i4.Result<_i5.WeatherInfoEntity>>(
+                this,
+                Invocation.method(#getWeather, [weatherTarget]),
+              ),
             ),
-            returnValueForMissingStub: _i6
-                .dummyValue<_i3.Result<_i4.WeatherInfoEntity>>(
-                  this,
-                  Invocation.method(#getWeather, [weatherTarget]),
+            returnValueForMissingStub:
+                _i3.Future<_i4.Result<_i5.WeatherInfoEntity>>.value(
+                  _i7.dummyValue<_i4.Result<_i5.WeatherInfoEntity>>(
+                    this,
+                    Invocation.method(#getWeather, [weatherTarget]),
+                  ),
                 ),
           )
-          as _i3.Result<_i4.WeatherInfoEntity>);
+          as _i3.Future<_i4.Result<_i5.WeatherInfoEntity>>);
 }
 
 /// A class which mocks [YumemiWeather].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockYumemiWeather extends _i1.Mock implements _i7.YumemiWeather {
+class MockYumemiWeather extends _i1.Mock implements _i8.YumemiWeather {
   @override
   String fetchSimpleWeather() =>
       (super.noSuchMethod(
             Invocation.method(#fetchSimpleWeather, []),
-            returnValue: _i6.dummyValue<String>(
+            returnValue: _i7.dummyValue<String>(
               this,
               Invocation.method(#fetchSimpleWeather, []),
             ),
-            returnValueForMissingStub: _i6.dummyValue<String>(
+            returnValueForMissingStub: _i7.dummyValue<String>(
               this,
               Invocation.method(#fetchSimpleWeather, []),
             ),
@@ -74,11 +80,11 @@ class MockYumemiWeather extends _i1.Mock implements _i7.YumemiWeather {
   String fetchThrowsWeather(String? area) =>
       (super.noSuchMethod(
             Invocation.method(#fetchThrowsWeather, [area]),
-            returnValue: _i6.dummyValue<String>(
+            returnValue: _i7.dummyValue<String>(
               this,
               Invocation.method(#fetchThrowsWeather, [area]),
             ),
-            returnValueForMissingStub: _i6.dummyValue<String>(
+            returnValueForMissingStub: _i7.dummyValue<String>(
               this,
               Invocation.method(#fetchThrowsWeather, [area]),
             ),
@@ -89,11 +95,11 @@ class MockYumemiWeather extends _i1.Mock implements _i7.YumemiWeather {
   String fetchWeather(String? jsonString) =>
       (super.noSuchMethod(
             Invocation.method(#fetchWeather, [jsonString]),
-            returnValue: _i6.dummyValue<String>(
+            returnValue: _i7.dummyValue<String>(
               this,
               Invocation.method(#fetchWeather, [jsonString]),
             ),
-            returnValueForMissingStub: _i6.dummyValue<String>(
+            returnValueForMissingStub: _i7.dummyValue<String>(
               this,
               Invocation.method(#fetchWeather, [jsonString]),
             ),
@@ -104,11 +110,11 @@ class MockYumemiWeather extends _i1.Mock implements _i7.YumemiWeather {
   String syncFetchWeather(String? jsonString) =>
       (super.noSuchMethod(
             Invocation.method(#syncFetchWeather, [jsonString]),
-            returnValue: _i6.dummyValue<String>(
+            returnValue: _i7.dummyValue<String>(
               this,
               Invocation.method(#syncFetchWeather, [jsonString]),
             ),
-            returnValueForMissingStub: _i6.dummyValue<String>(
+            returnValueForMissingStub: _i7.dummyValue<String>(
               this,
               Invocation.method(#syncFetchWeather, [jsonString]),
             ),

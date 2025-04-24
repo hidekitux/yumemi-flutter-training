@@ -38,35 +38,38 @@ void main() {
     container.dispose();
   });
 
-  test('getWeather returns expected weather info, if API call succeeds', () {
-    // Arrange
-    final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
-    when(
-      mockWeatherService.fetchWeather(weatherTarget),
-    ).thenReturn(expectedWeatherInfo);
+  test(
+    'getWeather returns expected weather info, if API call succeeds',
+    () async {
+      // Arrange
+      final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
+      when(
+        mockWeatherService.fetchWeather(weatherTarget),
+      ).thenAnswer((_) => Future.value(expectedWeatherInfo));
 
-    // Act
-    final result = weatherRepository.getWeather(weatherTarget);
+      // Act
+      final result = await weatherRepository.getWeather(weatherTarget);
 
-    // Assert
-    expect(
-      result,
-      isA<Success<WeatherInfoEntity>>().having(
-        (success) => success.value,
-        'having value equal to expectedWeatherInfo',
-        expectedWeatherInfo,
-      ),
-    );
-    verify(mockWeatherService.fetchWeather(weatherTarget)).called(1);
-  });
+      // Assert
+      expect(
+        result,
+        isA<Success<WeatherInfoEntity>>().having(
+          (success) => success.value,
+          'having value equal to expectedWeatherInfo',
+          expectedWeatherInfo,
+        ),
+      );
+      verify(mockWeatherService.fetchWeather(weatherTarget)).called(1);
+    },
+  );
 
   for (final error in YumemiWeatherError.values) {
-    test('getWeather returns Failure, if API throws $error', () {
+    test('getWeather returns Failure, if API throws $error', () async {
       // Arrange
       when(mockWeatherService.fetchWeather(weatherTarget)).thenThrow(error);
 
       // Act
-      final result = weatherRepository.getWeather(weatherTarget);
+      final result = await weatherRepository.getWeather(weatherTarget);
 
       // Assert
       expect(
@@ -81,14 +84,14 @@ void main() {
     });
   }
 
-  test('getWeather returns Failure, if API returns invalid data', () {
+  test('getWeather returns Failure, if API returns invalid data', () async {
     // Arrange
     when(
       mockWeatherService.fetchWeather(weatherTarget),
     ).thenThrow(const FormatException());
 
     // Act
-    final result = weatherRepository.getWeather(weatherTarget);
+    final result = await weatherRepository.getWeather(weatherTarget);
 
     // Assert
     expect(
