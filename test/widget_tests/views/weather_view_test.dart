@@ -97,9 +97,12 @@ class _WeatherViewRobot {
 
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 void main() {
+  // Arrange
   late MockWeatherRepository mockWeatherRepository;
   setUp(() => mockWeatherRepository = MockWeatherRepository());
   tearDown(() => reset(mockWeatherRepository));
+
+  final expectedWeatherTarget = createWeatherTarget();
 
   testWidgets('When the screen first appears, placeholders appear', (
     tester,
@@ -143,7 +146,6 @@ void main() {
         ],
       );
       await robot.setUp();
-      final expectedWeatherTarget = createWeatherTarget();
       final expectedWeatherInfo = createWeatherInfo(
         weatherCondition: weatherCondition,
         date: expectedWeatherTarget.date,
@@ -176,7 +178,6 @@ void main() {
       ],
     );
     await robot.setUp();
-    final expectedWeatherTarget = createWeatherTarget();
     final expectedWeatherInfo = createWeatherInfo(
       minTemperature: 1,
       maxTemperature: 25,
@@ -213,7 +214,6 @@ void main() {
           ],
         );
         await robot.setUp();
-        final expectedWeatherTarget = createWeatherTarget();
         final expectedError = Failure<WeatherInfoEntity>(error.message);
         provideDummy<Result<WeatherInfoEntity>>(expectedError);
         when(
