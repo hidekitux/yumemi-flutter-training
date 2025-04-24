@@ -83,16 +83,14 @@ void main() {
 
   test('getWeather returns Failure, if API returns invalid data', () {
     // Arrange
-    late Result<WeatherInfoEntity> result;
     when(
       mockWeatherService.fetchWeather(weatherTarget),
     ).thenThrow(const FormatException());
 
-    // Act and Assert
-    expect(
-      () => result = weatherRepository.getWeather(weatherTarget),
-      returnsNormally,
-    );
+    // Act
+    final result = weatherRepository.getWeather(weatherTarget);
+
+    // Assert
     expect(
       result,
       isA<Failure<WeatherInfoEntity>>().having(
