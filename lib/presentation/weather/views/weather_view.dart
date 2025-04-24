@@ -12,6 +12,14 @@ import 'package:flutter_training/presentation/weather/view_models/weather_view_m
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
 
+  Future<void> _showLoadingIndicator(BuildContext context) => showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return const Center(child: CircularProgressIndicator());
+    },
+  );
+
   Future<void> _showErrorDialog(BuildContext context, String message) =>
       showDialog<void>(
         context: context,
@@ -26,17 +34,29 @@ class WeatherView extends ConsumerWidget {
 
   void _closeWeather(BuildContext context) => Navigator.of(context).pop();
 
+  Future<void> _reloadWeather(BuildContext context, WidgetRef ref) => ref
+      .read(weatherViewModelProvider.notifier)
+      .reloadWeather(WeatherTargetEntity(area: 'Tokyo', date: DateTime.now()));
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(weatherViewModelProvider.select((e) => e.errorMessage), (
-      _,
-      next,
-    ) async {
-      // errorMessageがnullでなければエラーダイアログを表示する
-      if (next != null) {
-        await _showErrorDialog(context, next);
-      }
-    });
+    ref.listen(
+      weatherViewModelProvider.select(
+        (e) => (isLoading: e.isLoading, errorMessage: e.errorMessage),
+      ),
+      (_, next) async {
+        // isLoadingがtrueであればローディングインジケータを表示する
+        if (next.isLoading) {
+          await _showLoadingIndicator(context);
+        } else {
+          Navigator.of(context).pop();
+        }
+        // errorMessageがnullでなければエラーダイアログを表示する
+        if (next.errorMessage != null && context.mounted) {
+          await _showErrorDialog(context, next.errorMessage!);
+        }
+      },
+    );
 
     final viewModel = ref.watch(weatherViewModelProvider);
 
@@ -81,14 +101,7 @@ class WeatherView extends ConsumerWidget {
                       WeatherActionButton(
                         label: 'Reload',
                         onPressed:
-                            () => ref
-                                .read(weatherViewModelProvider.notifier)
-                                .reloadWeather(
-                                  WeatherTargetEntity(
-                                    area: 'Tokyo',
-                                    date: DateTime.now(),
-                                  ),
-                                ),
+                            () => unawaited(_reloadWeather(context, ref)),
                       ),
                     ],
                   ),

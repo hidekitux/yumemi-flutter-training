@@ -15,6 +15,8 @@ class WeatherViewModel extends _$WeatherViewModel {
   /// - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する
   /// - 失敗時: 元の天気予報を保持しながら、エラーメッセージでstateを更新する
   Future<void> reloadWeather(WeatherTargetEntity weatherTarget) async {
+    state = state.copyWith(isLoading: true, errorMessage: null);
+
     final result = await ref
         .read(reloadWeatherUseCaseProvider)
         .call(weatherTarget);
@@ -22,13 +24,14 @@ class WeatherViewModel extends _$WeatherViewModel {
     switch (result) {
       case Success(value: final weatherInfo):
         state = state.copyWith(
+          isLoading: false,
           errorMessage: null,
           weatherCondition: weatherInfo.weatherCondition,
           minTemperature: weatherInfo.minTemperature.toString(),
           maxTemperature: weatherInfo.maxTemperature.toString(),
         );
       case Failure(message: final message):
-        state = state.copyWith(errorMessage: message);
+        state = state.copyWith(isLoading: false, errorMessage: message);
     }
   }
 }
