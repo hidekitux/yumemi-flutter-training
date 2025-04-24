@@ -30,6 +30,7 @@ dev_dependencies:
   freezed: ^3.0.6
   freezed_lint: ^0.0.9
   json_serializable: ^6.9.4
+  mockito: ^5.4.5
   riverpod_generator: ^2.6.5
   riverpod_lint: ^2.6.5
   yumemi_lints: ^3.1.0
