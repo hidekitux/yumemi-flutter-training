@@ -21,7 +21,8 @@ Widget _createWidget({
 }
 
 void main() {
-  testWidgets('title, message, and OK buttons are displayed', (tester) async {
+  testWidgets('The ErrorDialog is initially displayed, '
+      'then the title, message and OK button are displayed', (tester) async {
     // Arrange
     await tester.pumpWidget(_createWidget());
 
@@ -31,9 +32,9 @@ void main() {
     expect(find.widgetWithText(TextButton, _textOkButton), findsOneWidget);
   });
 
-  testWidgets('onOkPressed is executed when the OK button is pressed', (
-    tester,
-  ) async {
+  testWidgets('The ErrorDialog is displayed with an onOkPressed callback, '
+      'when the OK button is tapped, '
+      'then the onOkPressed callback should be executed', (tester) async {
     // Arrange
     var onOkPressedCalled = false;
     await tester.pumpWidget(
