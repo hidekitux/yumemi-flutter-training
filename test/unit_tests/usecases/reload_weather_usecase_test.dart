@@ -42,7 +42,7 @@ void main() {
 
   test('call returns expected weather info, if API call succeeds', () {
     // Arrange
-    final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
+    final expectedWeatherInfo = createWeatherInfo();
     final expectedResult = Success(expectedWeatherInfo);
     provideDummy<Result<WeatherInfoEntity>>(expectedResult);
     when(

@@ -22,9 +22,7 @@ void main() {
   late ProviderContainer container;
 
   final expectedWeatherTarget = createWeatherTarget();
-  final expectedWeatherInfo = createWeatherInfo(
-    date: expectedWeatherTarget.date, // 固定された日付を使用
-  );
+  final expectedWeatherInfo = createWeatherInfo();
   final expectedErrorMessage = CommonErrorMessages.unknown.message;
   final expectedSuccessResult = Success(expectedWeatherInfo);
   final expectedFailureResult = Failure<WeatherInfoEntity>(

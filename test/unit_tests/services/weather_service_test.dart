@@ -35,7 +35,7 @@ void main() {
 
   test('fetchWeather returns expected weather info, if API call succeeds', () {
     // Arrange
-    final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
+    final expectedWeatherInfo = createWeatherInfo();
     final expectedJson = jsonEncode(expectedWeatherInfo.toJson());
     when(
       mockYumemiWeather.fetchWeather(weatherTargetJson),
