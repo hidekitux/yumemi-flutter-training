@@ -7,14 +7,14 @@ const _textMessage = 'エラーが発生しました。しばらくお待ちく�
 const _textOkButton = 'OK';
 
 Widget _createWidget({
-  String? title,
-  String? message,
+  String title = _textTitle,
+  String message = _textMessage,
   void Function()? onOkPressed,
 }) {
   return MaterialApp(
     home: ErrorDialog(
-      title: title ?? _textTitle,
-      message: message ?? _textMessage,
+      title: title,
+      message: message,
       onOkPressed: onOkPressed ?? () {},
     ),
   );
@@ -49,6 +49,6 @@ void main() {
     await tester.pump();
 
     // Assert
-    expect(onOkPressedCalled, true);
+    expect(onOkPressedCalled, isTrue);
   });
 }
