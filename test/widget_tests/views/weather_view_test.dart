@@ -125,7 +125,6 @@ void main() {
       final expectedWeatherTarget = createWeatherTarget();
       final expectedWeatherInfo = createWeatherInfo(
         weatherCondition: weatherCondition,
-        date: expectedWeatherTarget.date,
       );
       final expectedResult = Success(expectedWeatherInfo);
       provideDummy<Result<WeatherInfoEntity>>(expectedResult);
@@ -156,11 +155,7 @@ void main() {
     );
     await robot.setUp();
     final expectedWeatherTarget = createWeatherTarget();
-    final expectedWeatherInfo = createWeatherInfo(
-      minTemperature: 1,
-      maxTemperature: 25,
-      date: expectedWeatherTarget.date,
-    );
+    final expectedWeatherInfo = createWeatherInfo();
     final expectedResult = Success(expectedWeatherInfo);
     provideDummy<Result<WeatherInfoEntity>>(expectedResult);
     when(
