@@ -6,10 +6,7 @@ import 'package:flutter_training/presentation/weather/views/weather_view.dart';
 
 void main() {
   testWidgets('The StartupView is displayed, '
-      'when 500ms have passed, '
-      'then it should navigate to the WeatherView, removing StartupView', (
-    tester,
-  ) async {
+      'then pushes WeatherView after 500ms', (tester) async {
     // Arrange
     await tester.pumpWidget(
       const ProviderScope(child: MaterialApp(home: StartupView())),
