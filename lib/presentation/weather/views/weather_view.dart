@@ -40,25 +40,21 @@ class WeatherView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      weatherViewModelProvider.select(
-        (e) => (isLoading: e.isLoading, errorMessage: e.errorMessage),
-      ),
-      (_, next) async {
-        // isLoadingがtrueであればローディングインジケータを表示する
-        if (next.isLoading) {
-          await _showLoadingIndicator(context);
-        } else {
+    ref.listen(weatherViewModelProvider, (_, next) async {
+      switch (next) {
+        case AsyncData():
           Navigator.of(context).pop();
-        }
-        // errorMessageがnullでなければエラーダイアログを表示する
-        if (next.errorMessage != null && context.mounted) {
-          await _showErrorDialog(context, next.errorMessage!);
-        }
-      },
-    );
+        case AsyncError(:final error):
+          Navigator.of(context).pop();
+          await _showErrorDialog(context, error.toString());
+        default:
+          await _showLoadingIndicator(context);
+      }
+    });
 
-    final viewModel = ref.watch(weatherViewModelProvider);
+    final state = ref.watch(
+      weatherViewModelProvider.select((viewModel) => viewModel.value),
+    );
 
     return Scaffold(
       body: Center(
@@ -70,8 +66,8 @@ class WeatherView extends ConsumerWidget {
               AspectRatio(
                 aspectRatio: 1,
                 child:
-                    viewModel.weatherCondition != null
-                        ? SvgPicture.asset(viewModel.weatherCondition!.svgPath)
+                    state?.weatherCondition != null
+                        ? SvgPicture.asset(state!.weatherCondition!.svgPath)
                         : const Placeholder(),
               ),
               Padding(
@@ -79,11 +75,11 @@ class WeatherView extends ConsumerWidget {
                 child: Row(
                   children: [
                     TemperatureIndicator(
-                      label: '${viewModel.minTemperature} ℃',
+                      label: '${state?.minTemperature} ℃',
                       color: Colors.blue,
                     ),
                     TemperatureIndicator(
-                      label: '${viewModel.maxTemperature} ℃',
+                      label: '${state?.maxTemperature} ℃',
                       color: Colors.red,
                     ),
                   ],
