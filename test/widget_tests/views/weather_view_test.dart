@@ -91,7 +91,10 @@ class _WeatherViewRobot {
   }
 
   Future<void> checkErrorDialog(String message) async {
-    expect(find.widgetWithText(ErrorDialog, message), findsOneWidget);
+    expect(
+      find.widgetWithText(ErrorDialog, 'Exception: $message'),
+      findsOneWidget,
+    );
   }
 }
 
