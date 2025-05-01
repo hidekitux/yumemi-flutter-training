@@ -5,7 +5,7 @@ import '../../fixtures/weather_fixtures.dart';
 
 void main() {
   // Arrange
-  final expectedWeatherInfo = createWeatherInfo(date: null);
+  final expectedWeatherInfo = createWeatherInfo();
   final expectedJson = {
     'weather_condition': expectedWeatherInfo.weatherCondition.name,
     'max_temperature': expectedWeatherInfo.maxTemperature,

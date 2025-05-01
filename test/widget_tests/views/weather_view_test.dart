@@ -104,7 +104,8 @@ void main() {
 
   final expectedWeatherTarget = createWeatherTarget();
 
-  testWidgets('When the screen first appears, placeholders appear', (
+  testWidgets('The WeatherView is initially displayed, '
+      'then placeholders for image and temperatures should be displayed', (
     tester,
   ) async {
     // Arrange
@@ -133,9 +134,9 @@ void main() {
   });
 
   for (final weatherCondition in WeatherCondition.values) {
-    testWidgets('When the reload button is tapped, $weatherCondition appears', (
-      tester,
-    ) async {
+    testWidgets('The API will return $weatherCondition, '
+        'when the Reload button is tapped, '
+        'then the $weatherCondition image should be displayed', (tester) async {
       // Arrange
       final robot = _WeatherViewRobot(
         tester,
@@ -148,7 +149,6 @@ void main() {
       await robot.setUp();
       final expectedWeatherInfo = createWeatherInfo(
         weatherCondition: weatherCondition,
-        date: expectedWeatherTarget.date,
       );
       final expectedResult = Success(expectedWeatherInfo);
       provideDummy<Result<WeatherInfoEntity>>(expectedResult);
@@ -165,7 +165,9 @@ void main() {
     });
   }
 
-  testWidgets('When the reload button is tapped, temperatures appears', (
+  testWidgets('The API will return specific temperatures, '
+      'when the Reload button is tapped, '
+      'then the corresponding min and max temperatures should be displayed', (
     tester,
   ) async {
     // Arrange
@@ -178,11 +180,7 @@ void main() {
       ],
     );
     await robot.setUp();
-    final expectedWeatherInfo = createWeatherInfo(
-      minTemperature: 1,
-      maxTemperature: 25,
-      date: expectedWeatherTarget.date,
-    );
+    final expectedWeatherInfo = createWeatherInfo();
     final expectedResult = Success(expectedWeatherInfo);
     provideDummy<Result<WeatherInfoEntity>>(expectedResult);
     when(
@@ -201,38 +199,37 @@ void main() {
   });
 
   for (final error in YumemiWeatherError.values) {
-    testWidgets(
-      'When the reload button is tapped, ErrorDialog with $error appears',
-      (tester) async {
-        // Arrange
-        final robot = _WeatherViewRobot(
-          tester,
-          overrides: [
-            reloadWeatherUseCaseProvider.overrideWithValue(
-              ReloadWeatherUseCase(mockWeatherRepository),
-            ),
-          ],
-        );
-        await robot.setUp();
-        final expectedError = Failure<WeatherInfoEntity>(error.message);
-        provideDummy<Result<WeatherInfoEntity>>(expectedError);
-        when(
-          mockWeatherRepository.getWeather(expectedWeatherTarget),
-        ).thenAnswer((_) => Future.value(expectedError));
+    testWidgets('The API will return a ${error.name} error, '
+        'when the Reload button is tapped, '
+        'then an error dialog with the message "${error.message}" '
+        'should be displayed.', (tester) async {
+      // Arrange
+      final robot = _WeatherViewRobot(
+        tester,
+        overrides: [
+          reloadWeatherUseCaseProvider.overrideWithValue(
+            ReloadWeatherUseCase(mockWeatherRepository),
+          ),
+        ],
+      );
+      await robot.setUp();
+      final expectedError = Failure<WeatherInfoEntity>(error.message);
+      provideDummy<Result<WeatherInfoEntity>>(expectedError);
+      when(
+        mockWeatherRepository.getWeather(expectedWeatherTarget),
+      ).thenAnswer((_) => Future.value(expectedError));
 
-        // Act
-        await robot.tapReloadButton();
+      // Act
+      await robot.tapReloadButton();
 
-        // Assert
-        await robot.checkErrorDialog(error.message);
-        await robot.tearDown();
-      },
-    );
+      // Assert
+      await robot.checkErrorDialog(error.message);
+      await robot.tearDown();
+    });
   }
 
-  testWidgets('When the close button is tapped, WeatherView disappears', (
-    tester,
-  ) async {
+  testWidgets('The WeatherView is displayed, when the Close button is tapped, '
+      'then the WeatherView should be popped', (tester) async {
     // Arrange
     final robot = _WeatherViewRobot(tester);
     await robot.setUp();

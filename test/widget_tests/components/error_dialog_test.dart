@@ -7,21 +7,22 @@ const _textMessage = 'エラーが発生しました。しばらくお待ちく�
 const _textOkButton = 'OK';
 
 Widget _createWidget({
-  String? title,
-  String? message,
+  String title = _textTitle,
+  String message = _textMessage,
   void Function()? onOkPressed,
 }) {
   return MaterialApp(
     home: ErrorDialog(
-      title: title ?? _textTitle,
-      message: message ?? _textMessage,
+      title: title,
+      message: message,
       onOkPressed: onOkPressed ?? () {},
     ),
   );
 }
 
 void main() {
-  testWidgets('title, message, and OK buttons are displayed', (tester) async {
+  testWidgets('The ErrorDialog is initially displayed, '
+      'then the title, message and OK button are displayed', (tester) async {
     // Arrange
     await tester.pumpWidget(_createWidget());
 
@@ -31,9 +32,9 @@ void main() {
     expect(find.widgetWithText(TextButton, _textOkButton), findsOneWidget);
   });
 
-  testWidgets('onOkPressed is executed when the OK button is pressed', (
-    tester,
-  ) async {
+  testWidgets('The ErrorDialog is displayed with an onOkPressed callback, '
+      'when the OK button is tapped, '
+      'then the onOkPressed callback should be executed', (tester) async {
     // Arrange
     var onOkPressedCalled = false;
     await tester.pumpWidget(
@@ -49,6 +50,6 @@ void main() {
     await tester.pump();
 
     // Assert
-    expect(onOkPressedCalled, true);
+    expect(onOkPressedCalled, isTrue);
   });
 }
