@@ -40,7 +40,7 @@ void main() {
 
   test('getWeather returns expected weather info, if API call succeeds', () {
     // Arrange
-    final expectedWeatherInfo = createWeatherInfo(date: weatherTarget.date);
+    final expectedWeatherInfo = createWeatherInfo();
     when(
       mockWeatherService.fetchWeather(weatherTarget),
     ).thenReturn(expectedWeatherInfo);
