@@ -17,19 +17,19 @@ class WeatherViewModel extends _$WeatherViewModel {
   Future<void> reloadWeather(WeatherTargetEntity weatherTarget) async {
     state = const AsyncValue.loading();
 
-    state = await AsyncValue.guard(() async {
-      final result = await ref
-          .read(reloadWeatherUseCaseProvider)
-          .call(weatherTarget);
+    final result = await ref
+        .read(reloadWeatherUseCaseProvider)
+        .call(weatherTarget);
 
-      return switch (result) {
-        Success(value: final weatherInfo) => WeatherViewState(
+    state = switch (result) {
+      Success(value: final weatherInfo) => AsyncValue.data(
+        WeatherViewState(
           weatherCondition: weatherInfo.weatherCondition,
           minTemperature: weatherInfo.minTemperature.toString(),
           maxTemperature: weatherInfo.maxTemperature.toString(),
         ),
-        Failure(message: final message) => throw Exception(message),
-      };
-    });
+      ),
+      Failure(:final message) => AsyncValue.error(message, StackTrace.current),
+    };
   }
 }

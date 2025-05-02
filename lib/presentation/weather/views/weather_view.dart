@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_training/domain/weather/constants/weather_condition.dart';
 import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart';
 import 'package:flutter_training/presentation/common/components/error_dialog.dart';
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
@@ -11,14 +12,6 @@ import 'package:flutter_training/presentation/weather/view_models/weather_view_m
 
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
-
-  Future<void> _showLoadingIndicator(BuildContext context) => showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) {
-      return const Center(child: CircularProgressIndicator());
-    },
-  );
 
   Future<void> _showErrorDialog(BuildContext context, String message) =>
       showDialog<void>(
@@ -40,71 +33,110 @@ class WeatherView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(weatherViewModelProvider, (_, next) async {
-      switch (next) {
-        case AsyncData():
-          Navigator.of(context).pop();
-        case AsyncError(:final error):
-          Navigator.of(context).pop();
-          await _showErrorDialog(context, error.toString());
-        default:
-          await _showLoadingIndicator(context);
-      }
-    });
+    ref.listen(
+      weatherViewModelProvider.select((viewModel) => viewModel.error),
+      (_, next) async {
+        if (next != null && context.mounted) {
+          await _showErrorDialog(context, next.toString());
+        }
+      },
+    );
 
-    final state = ref.watch(
-      weatherViewModelProvider.select((viewModel) => viewModel.value),
+    final viewModel = ref.watch(weatherViewModelProvider);
+    final (weatherCondition, minTemperature, maxTemperature) = (
+      viewModel.value!.weatherCondition,
+      viewModel.value!.minTemperature,
+      viewModel.value!.maxTemperature,
     );
 
     return Scaffold(
-      body: Center(
-        child: FractionallySizedBox(
-          widthFactor: 1 / 2,
-          child: Column(
-            children: [
-              const Spacer(),
-              AspectRatio(
-                aspectRatio: 1,
-                child:
-                    state?.weatherCondition != null
-                        ? SvgPicture.asset(state!.weatherCondition!.svgPath)
-                        : const Placeholder(),
+      body: Stack(
+        children: [
+          WeatherBody(
+            weatherCondition: weatherCondition,
+            minTemperature: minTemperature,
+            maxTemperature: maxTemperature,
+            onClosePressed: () => _closeWeather(context),
+            onReloadPressed: () => unawaited(_reloadWeather(context, ref)),
+          ),
+          if (viewModel.isLoading) ...[
+            const ModalBarrier(dismissible: false, color: Colors.black54),
+            const Center(child: CircularProgressIndicator()),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class WeatherBody extends StatelessWidget {
+  const WeatherBody({
+    required WeatherCondition? weatherCondition,
+    required String minTemperature,
+    required String maxTemperature,
+    required VoidCallback onClosePressed,
+    required VoidCallback onReloadPressed,
+    super.key,
+  }) : _weatherCondition = weatherCondition,
+       _minTemperature = minTemperature,
+       _maxTemperature = maxTemperature,
+       _onClosePressed = onClosePressed,
+       _onReloadPressed = onReloadPressed;
+
+  final WeatherCondition? _weatherCondition;
+  final String _minTemperature;
+  final String _maxTemperature;
+  final VoidCallback _onClosePressed;
+  final VoidCallback _onReloadPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: FractionallySizedBox(
+        widthFactor: 1 / 2,
+        child: Column(
+          children: [
+            const Spacer(),
+            AspectRatio(
+              aspectRatio: 1,
+              child:
+                  _weatherCondition != null
+                      ? SvgPicture.asset(_weatherCondition.svgPath)
+                      : const Placeholder(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                children: [
+                  TemperatureIndicator(
+                    label: '$_minTemperature ℃',
+                    color: Colors.blue,
+                  ),
+                  TemperatureIndicator(
+                    label: '$_maxTemperature ℃',
+                    color: Colors.red,
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 80),
                 child: Row(
                   children: [
-                    TemperatureIndicator(
-                      label: '${state?.minTemperature} ℃',
-                      color: Colors.blue,
+                    WeatherActionButton(
+                      label: 'Close',
+                      onPressed: _onClosePressed,
                     ),
-                    TemperatureIndicator(
-                      label: '${state?.maxTemperature} ℃',
-                      color: Colors.red,
+                    WeatherActionButton(
+                      label: 'Reload',
+                      onPressed: _onReloadPressed,
                     ),
                   ],
                 ),
               ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 80),
-                  child: Row(
-                    children: [
-                      WeatherActionButton(
-                        label: 'Close',
-                        onPressed: () => _closeWeather(context),
-                      ),
-                      WeatherActionButton(
-                        label: 'Reload',
-                        onPressed:
-                            () => unawaited(_reloadWeather(context, ref)),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
