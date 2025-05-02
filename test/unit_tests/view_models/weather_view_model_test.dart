@@ -91,14 +91,7 @@ void main() {
     // Assert
     const placeholderTemperature = '**';
     final state = viewModel.state.value;
-    expect(
-      viewModel.state.error,
-      isA<Exception>().having(
-        (e) => e.toString(),
-        'error',
-        'Exception: $expectedErrorMessage',
-      ),
-    );
+    expect(viewModel.state.error, expectedErrorMessage);
     expect(state?.weatherCondition, null);
     expect(state?.minTemperature, placeholderTemperature);
     expect(state?.maxTemperature, placeholderTemperature);
@@ -127,14 +120,7 @@ void main() {
 
       // Assert
       final state = viewModel.state.value;
-      expect(
-        viewModel.state.error,
-        isA<Exception>().having(
-          (e) => e.toString(),
-          'error',
-          'Exception: $expectedErrorMessage',
-        ),
-      );
+      expect(viewModel.state.error, expectedErrorMessage);
       expect(state?.weatherCondition, expectedWeatherInfo.weatherCondition);
       expect(
         state?.minTemperature,
