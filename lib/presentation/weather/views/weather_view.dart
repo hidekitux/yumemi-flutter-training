@@ -34,7 +34,7 @@ class WeatherView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
-      weatherViewModelProvider.select((viewState) => viewState.error),
+      weatherViewModelProvider.select((asyncViewState) => asyncViewState.error),
       (_, next) async {
         if (next != null && context.mounted) {
           await _showErrorDialog(context, next.toString());
