@@ -43,12 +43,12 @@ void main() {
     container.dispose();
   });
 
-  test('weatherViewModelProvider returns WeatherViewState when read', () {
+  test('weatherViewModelProvider returns WeatherViewState when read', () async {
     // Act
-    final state = container.read(weatherViewModelProvider).value;
+    final viewState = await container.read(weatherViewModelProvider.future);
 
     // Assert
-    expect(state, const WeatherViewState());
+    expect(viewState, const WeatherViewState());
   });
 
   test('reloadWeather updates state successfully', () async {
@@ -63,16 +63,12 @@ void main() {
     await viewModel.reloadWeather(expectedWeatherTarget);
 
     // Assert
-    final state = viewModel.state.value;
-    expect(state?.weatherCondition, expectedWeatherInfo.weatherCondition);
-    expect(
-      state?.minTemperature,
-      expectedWeatherInfo.minTemperature.toString(),
-    );
-    expect(
-      state?.maxTemperature,
-      expectedWeatherInfo.maxTemperature.toString(),
-    );
+    final (weatherCondition, minTemperature, maxTemperature) =
+        viewModel.getViewState();
+
+    expect(weatherCondition, expectedWeatherInfo.weatherCondition);
+    expect(minTemperature, expectedWeatherInfo.minTemperature.toString());
+    expect(maxTemperature, expectedWeatherInfo.maxTemperature.toString());
     verify(mockWeatherRepository.getWeather(expectedWeatherTarget)).called(1);
   });
 
@@ -90,11 +86,12 @@ void main() {
 
     // Assert
     const placeholderTemperature = '**';
-    final state = viewModel.state.value;
+    final (weatherCondition, minTemperature, maxTemperature) =
+        viewModel.getViewState();
     expect(viewModel.state.error, expectedErrorMessage);
-    expect(state?.weatherCondition, null);
-    expect(state?.minTemperature, placeholderTemperature);
-    expect(state?.maxTemperature, placeholderTemperature);
+    expect(weatherCondition, null);
+    expect(minTemperature, placeholderTemperature);
+    expect(maxTemperature, placeholderTemperature);
     verify(mockWeatherRepository.getWeather(expectedWeatherTarget)).called(1);
   });
 
@@ -103,6 +100,9 @@ void main() {
     () async {
       // Arrange
       final viewModel = container.read(weatherViewModelProvider.notifier);
+
+      // Overwrite state after running WeatherViewModel.build
+      await viewModel.build();
       viewModel.state = AsyncValue.data(
         WeatherViewState(
           weatherCondition: expectedWeatherInfo.weatherCondition,
@@ -110,6 +110,7 @@ void main() {
           maxTemperature: expectedWeatherInfo.maxTemperature.toString(),
         ),
       );
+
       provideDummy<Result<WeatherInfoEntity>>(expectedFailureResult);
       when(
         mockWeatherRepository.getWeather(expectedWeatherTarget),
@@ -119,17 +120,12 @@ void main() {
       await viewModel.reloadWeather(expectedWeatherTarget);
 
       // Assert
-      final state = viewModel.state.value;
+      final (weatherCondition, minTemperature, maxTemperature) =
+          viewModel.getViewState();
       expect(viewModel.state.error, expectedErrorMessage);
-      expect(state?.weatherCondition, expectedWeatherInfo.weatherCondition);
-      expect(
-        state?.minTemperature,
-        expectedWeatherInfo.minTemperature.toString(),
-      );
-      expect(
-        state?.maxTemperature,
-        expectedWeatherInfo.maxTemperature.toString(),
-      );
+      expect(weatherCondition, expectedWeatherInfo.weatherCondition);
+      expect(minTemperature, expectedWeatherInfo.minTemperature.toString());
+      expect(maxTemperature, expectedWeatherInfo.maxTemperature.toString());
       verify(mockWeatherRepository.getWeather(expectedWeatherTarget)).called(1);
     },
   );

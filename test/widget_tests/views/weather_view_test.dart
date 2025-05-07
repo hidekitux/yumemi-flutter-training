@@ -37,6 +37,7 @@ class _WeatherViewRobot {
         child: const MaterialApp(home: WeatherView()),
       ),
     );
+    await tester.pumpAndSettle();
   }
 
   Future<void> tearDown() async {
