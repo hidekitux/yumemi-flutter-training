@@ -1,5 +1,6 @@
 import 'package:flutter_training/application/weather/usecase_providers.dart';
 import 'package:flutter_training/domain/common/interfaces/result.dart';
+import 'package:flutter_training/domain/weather/constants/weather_condition.dart';
 import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart';
 import 'package:flutter_training/presentation/weather/view_states/weather_view_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,6 +11,20 @@ part 'weather_view_model.g.dart';
 class WeatherViewModel extends _$WeatherViewModel {
   @override
   FutureOr<WeatherViewState> build() => Future.value(const WeatherViewState());
+
+  (
+    WeatherCondition? weatherCondition,
+    String minTemperature,
+    String maxTemperature,
+  )
+  getViewState() {
+    final currentViewState = state.valueOrNull ?? const WeatherViewState();
+    return (
+      currentViewState.weatherCondition,
+      currentViewState.minTemperature,
+      currentViewState.maxTemperature,
+    );
+  }
 
   /// 天気予報を取得し、実行結果に応じてstateを更新する
   /// - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する

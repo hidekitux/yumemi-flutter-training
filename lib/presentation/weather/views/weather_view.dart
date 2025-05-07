@@ -34,7 +34,7 @@ class WeatherView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
-      weatherViewModelProvider.select((viewModel) => viewModel.error),
+      weatherViewModelProvider.select((viewState) => viewState.error),
       (_, next) async {
         if (next != null && context.mounted) {
           await _showErrorDialog(context, next.toString());
@@ -42,12 +42,9 @@ class WeatherView extends ConsumerWidget {
       },
     );
 
-    final viewModel = ref.watch(weatherViewModelProvider);
-    final (weatherCondition, minTemperature, maxTemperature) = (
-      viewModel.requireValue.weatherCondition,
-      viewModel.requireValue.minTemperature,
-      viewModel.requireValue.maxTemperature,
-    );
+    final asyncViewState = ref.watch(weatherViewModelProvider);
+    final (weatherCondition, minTemperature, maxTemperature) =
+        ref.read(weatherViewModelProvider.notifier).getViewState();
 
     return Scaffold(
       body: Stack(
@@ -59,7 +56,7 @@ class WeatherView extends ConsumerWidget {
             onClosePressed: () => _closeWeather(context),
             onReloadPressed: () => unawaited(_reloadWeather(ref)),
           ),
-          if (viewModel.isLoading) ...[
+          if (asyncViewState.isLoading) ...[
             const ModalBarrier(dismissible: false, color: Colors.black54),
             const Center(child: CircularProgressIndicator()),
           ],
