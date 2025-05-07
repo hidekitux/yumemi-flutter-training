@@ -9,7 +9,7 @@ part 'weather_view_model.g.dart';
 @riverpod
 class WeatherViewModel extends _$WeatherViewModel {
   @override
-  FutureOr<WeatherViewState> build() => const WeatherViewState();
+  FutureOr<WeatherViewState> build() => Future.value(const WeatherViewState());
 
   /// 天気予報を取得し、実行結果に応じてstateを更新する
   /// - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する
