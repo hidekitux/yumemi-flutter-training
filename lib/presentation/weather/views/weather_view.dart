@@ -9,7 +9,6 @@ import 'package:flutter_training/presentation/common/components/error_dialog.dar
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
-import 'package:flutter_training/presentation/weather/view_states/weather_view_state.dart';
 
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
@@ -44,11 +43,10 @@ class WeatherView extends ConsumerWidget {
     );
 
     final viewModel = ref.watch(weatherViewModelProvider);
-    final state = viewModel.value ?? const WeatherViewState();
     final (weatherCondition, minTemperature, maxTemperature) = (
-      state.weatherCondition,
-      state.minTemperature,
-      state.maxTemperature,
+      viewModel.requireValue.weatherCondition,
+      viewModel.requireValue.minTemperature,
+      viewModel.requireValue.maxTemperature,
     );
 
     return Scaffold(
