@@ -9,6 +9,7 @@ import 'package:flutter_training/presentation/common/components/error_dialog.dar
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
+import 'package:flutter_training/presentation/weather/view_states/weather_view_state.dart';
 
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
@@ -27,7 +28,7 @@ class WeatherView extends ConsumerWidget {
 
   void _closeWeather(BuildContext context) => Navigator.of(context).pop();
 
-  Future<void> _reloadWeather(BuildContext context, WidgetRef ref) => ref
+  Future<void> _reloadWeather(WidgetRef ref) => ref
       .read(weatherViewModelProvider.notifier)
       .reloadWeather(WeatherTargetEntity(area: 'Tokyo', date: DateTime.now()));
 
@@ -43,10 +44,11 @@ class WeatherView extends ConsumerWidget {
     );
 
     final viewModel = ref.watch(weatherViewModelProvider);
+    final state = viewModel.value ?? const WeatherViewState();
     final (weatherCondition, minTemperature, maxTemperature) = (
-      viewModel.value!.weatherCondition,
-      viewModel.value!.minTemperature,
-      viewModel.value!.maxTemperature,
+      state.weatherCondition,
+      state.minTemperature,
+      state.maxTemperature,
     );
 
     return Scaffold(
@@ -57,7 +59,7 @@ class WeatherView extends ConsumerWidget {
             minTemperature: minTemperature,
             maxTemperature: maxTemperature,
             onClosePressed: () => _closeWeather(context),
-            onReloadPressed: () => unawaited(_reloadWeather(context, ref)),
+            onReloadPressed: () => unawaited(_reloadWeather(ref)),
           ),
           if (viewModel.isLoading) ...[
             const ModalBarrier(dismissible: false, color: Colors.black54),
