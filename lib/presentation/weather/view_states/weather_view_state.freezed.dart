@@ -78,8 +78,8 @@ as WeatherCondition?,
 /// @nodoc
 
 
-class _WeatherViewState implements WeatherViewState {
-  const _WeatherViewState({this.minTemperature = '**', this.maxTemperature = '**', this.weatherCondition = null});
+class _WeatherViewState extends WeatherViewState {
+  const _WeatherViewState({this.minTemperature = '**', this.maxTemperature = '**', this.weatherCondition = null}): super._();
   
 
 @override@JsonKey() final  String minTemperature;

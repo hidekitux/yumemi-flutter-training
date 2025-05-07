@@ -10,4 +10,14 @@ abstract class WeatherViewState with _$WeatherViewState {
     @Default('**') String maxTemperature,
     @Default(null) WeatherCondition? weatherCondition,
   }) = _WeatherViewState;
+
+  // Added a constructor to manually add methods to a class in freezed
+  // ignore: unused_element
+  const WeatherViewState._();
+
+  (String, String, WeatherCondition?) toRecord() => (
+    minTemperature,
+    maxTemperature,
+    weatherCondition,
+  );
 }
