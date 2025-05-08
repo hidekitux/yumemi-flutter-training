@@ -5,5 +5,5 @@ typedef UseCaseErrorCallback = void Function(String message);
 
 /// T: 戻り値, P: 引数
 abstract class UseCase<T, P> {
-  Result<T> call(P params);
+  Future<Result<T>> call(P params);
 }

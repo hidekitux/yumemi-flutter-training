@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 class TemperatureIndicator extends StatelessWidget {
   const TemperatureIndicator({
     required Color color,
-    required String label,
+    String? value,
+    String? suffix,
     super.key,
-  }) : _label = label,
-       _color = color;
+  }) : _color = color,
+       _value = value ?? '**',
+       _suffix = suffix ?? '℃';
 
   final Color _color;
-  final String _label;
+  final String _value;
+  final String _suffix;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class TemperatureIndicator extends StatelessWidget {
 
     return Expanded(
       child: Text(
-        _label,
+        '$_value $_suffix',
         textAlign: TextAlign.center,
         style: textStyle?.copyWith(color: _color),
       ),

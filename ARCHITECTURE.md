@@ -89,13 +89,18 @@ lib
 - `WeatherView`
   - UI (BuildContext)を扱うような関数はView内に定義している
   - Reloadボタンを押した際に`WeatherViewModel`の`reloadWeather`関数を実行する
-    - `WeatherViewModel`をwatchし、成功した場合に取得した天気予報をUIに反映する
-    - エラーメッセージの有無をlistenし、エラーが発生した場合はエラーダイアログを表示する
+    - `WeatherViewModel`の`state`をwatchし、以下のように画面の出し分けを行う
+      - 成功した場合 (`AsyncData`): 取得した天気予報をUIに反映する
+      - 読み込み中の場合 (`AsyncLoading`): 天気予報より前面に読み込み中のインジケーターを表示する
+    - `WeatherViewModel`の`state`をlistenし、天気予報の取得に失敗した場合にエラーダイアログを表示する
 - `WeatherViewModel`
+  - Riverpodの`AsyncNotifier`を使っている
+  - 最初に持っている状態はUIにおいてプレースホルダーを表す値になっている
+  - 一度でも`reloadWeather`関数が成功すると、それ以降は最後に取得した値を保持する
   - `reloadWeather`関数が実行されると、`ReloadWeatherUseCase`の`call`関数を実行する
-  - 処理結果（成功・失敗）に応じて、天気予報やエラーメッセージなどを更新する
-    - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する
-    - 失敗時: 元の天気予報を保持しながら、エラーメッセージでstateを更新する
+    - 処理結果（成功・失敗）に応じて、天気予報やエラーメッセージなどを更新する
+      - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する
+      - 失敗時: 元の天気予報を保持しながら、エラーメッセージでstateを更新する
 
 ### Application
 
