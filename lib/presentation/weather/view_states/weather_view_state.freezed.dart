@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeatherViewState {
 
- String get minTemperature; String get maxTemperature; WeatherCondition? get weatherCondition;
+ String? get minTemperature; String? get maxTemperature; WeatherCondition? get weatherCondition;
 /// Create a copy of WeatherViewState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -46,7 +46,7 @@ abstract mixin class $WeatherViewStateCopyWith<$Res>  {
   factory $WeatherViewStateCopyWith(WeatherViewState value, $Res Function(WeatherViewState) _then) = _$WeatherViewStateCopyWithImpl;
 @useResult
 $Res call({
- String minTemperature, String maxTemperature, WeatherCondition? weatherCondition
+ String? minTemperature, String? maxTemperature, WeatherCondition? weatherCondition
 });
 
 
@@ -63,11 +63,11 @@ class _$WeatherViewStateCopyWithImpl<$Res>
 
 /// Create a copy of WeatherViewState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? minTemperature = null,Object? maxTemperature = null,Object? weatherCondition = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? minTemperature = freezed,Object? maxTemperature = freezed,Object? weatherCondition = freezed,}) {
   return _then(_self.copyWith(
-minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
-as String,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
-as String,weatherCondition: freezed == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
+minTemperature: freezed == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
+as String?,maxTemperature: freezed == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
+as String?,weatherCondition: freezed == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
 as WeatherCondition?,
   ));
 }
@@ -79,12 +79,12 @@ as WeatherCondition?,
 
 
 class _WeatherViewState implements WeatherViewState {
-  const _WeatherViewState({this.minTemperature = '**', this.maxTemperature = '**', this.weatherCondition = null});
+  const _WeatherViewState({this.minTemperature, this.maxTemperature, this.weatherCondition});
   
 
-@override@JsonKey() final  String minTemperature;
-@override@JsonKey() final  String maxTemperature;
-@override@JsonKey() final  WeatherCondition? weatherCondition;
+@override final  String? minTemperature;
+@override final  String? maxTemperature;
+@override final  WeatherCondition? weatherCondition;
 
 /// Create a copy of WeatherViewState
 /// with the given fields replaced by the non-null parameter values.
@@ -116,7 +116,7 @@ abstract mixin class _$WeatherViewStateCopyWith<$Res> implements $WeatherViewSta
   factory _$WeatherViewStateCopyWith(_WeatherViewState value, $Res Function(_WeatherViewState) _then) = __$WeatherViewStateCopyWithImpl;
 @override @useResult
 $Res call({
- String minTemperature, String maxTemperature, WeatherCondition? weatherCondition
+ String? minTemperature, String? maxTemperature, WeatherCondition? weatherCondition
 });
 
 
@@ -133,11 +133,11 @@ class __$WeatherViewStateCopyWithImpl<$Res>
 
 /// Create a copy of WeatherViewState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? minTemperature = null,Object? maxTemperature = null,Object? weatherCondition = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? minTemperature = freezed,Object? maxTemperature = freezed,Object? weatherCondition = freezed,}) {
   return _then(_WeatherViewState(
-minTemperature: null == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
-as String,maxTemperature: null == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
-as String,weatherCondition: freezed == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
+minTemperature: freezed == minTemperature ? _self.minTemperature : minTemperature // ignore: cast_nullable_to_non_nullable
+as String?,maxTemperature: freezed == maxTemperature ? _self.maxTemperature : maxTemperature // ignore: cast_nullable_to_non_nullable
+as String?,weatherCondition: freezed == weatherCondition ? _self.weatherCondition : weatherCondition // ignore: cast_nullable_to_non_nullable
 as WeatherCondition?,
   ));
 }

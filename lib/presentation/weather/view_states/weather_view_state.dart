@@ -6,8 +6,8 @@ part 'weather_view_state.freezed.dart';
 @freezed
 abstract class WeatherViewState with _$WeatherViewState {
   const factory WeatherViewState({
-    @Default('**') String minTemperature,
-    @Default('**') String maxTemperature,
-    @Default(null) WeatherCondition? weatherCondition,
+    String? minTemperature,
+    String? maxTemperature,
+    WeatherCondition? weatherCondition,
   }) = _WeatherViewState;
 }
