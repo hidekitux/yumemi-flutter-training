@@ -44,7 +44,7 @@ class WeatherView extends ConsumerWidget {
 
     final asyncViewState = ref.watch(weatherViewModelProvider);
     final (weatherCondition, minTemperature, maxTemperature) =
-        ref.read(weatherViewModelProvider.notifier).getViewState();
+        ref.watch(weatherViewModelProvider.notifier).getViewState();
 
     return Scaffold(
       body: Stack(
