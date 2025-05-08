@@ -63,12 +63,16 @@ void main() {
     await viewModel.reloadWeather(expectedWeatherTarget);
 
     // Assert
-    final (weatherCondition, minTemperature, maxTemperature) =
-        viewModel.getViewState();
-
-    expect(weatherCondition, expectedWeatherInfo.weatherCondition);
-    expect(minTemperature, expectedWeatherInfo.minTemperature.toString());
-    expect(maxTemperature, expectedWeatherInfo.maxTemperature.toString());
+    final viewState = viewModel.state.value;
+    expect(viewState?.weatherCondition, expectedWeatherInfo.weatherCondition);
+    expect(
+      viewState?.minTemperature,
+      expectedWeatherInfo.minTemperature.toString(),
+    );
+    expect(
+      viewState?.maxTemperature,
+      expectedWeatherInfo.maxTemperature.toString(),
+    );
     verify(mockWeatherRepository.getWeather(expectedWeatherTarget)).called(1);
   });
 
@@ -85,13 +89,11 @@ void main() {
     await viewModel.reloadWeather(expectedWeatherTarget);
 
     // Assert
-    const placeholderTemperature = '**';
-    final (weatherCondition, minTemperature, maxTemperature) =
-        viewModel.getViewState();
+    final viewState = viewModel.state.value;
     expect(viewModel.state.error, expectedErrorMessage);
-    expect(weatherCondition, null);
-    expect(minTemperature, placeholderTemperature);
-    expect(maxTemperature, placeholderTemperature);
+    expect(viewState?.weatherCondition, null);
+    expect(viewState?.minTemperature, null);
+    expect(viewState?.maxTemperature, null);
     verify(mockWeatherRepository.getWeather(expectedWeatherTarget)).called(1);
   });
 
@@ -120,12 +122,18 @@ void main() {
       await viewModel.reloadWeather(expectedWeatherTarget);
 
       // Assert
-      final (weatherCondition, minTemperature, maxTemperature) =
-          viewModel.getViewState();
+      final viewState = viewModel.state.value;
+
       expect(viewModel.state.error, expectedErrorMessage);
-      expect(weatherCondition, expectedWeatherInfo.weatherCondition);
-      expect(minTemperature, expectedWeatherInfo.minTemperature.toString());
-      expect(maxTemperature, expectedWeatherInfo.maxTemperature.toString());
+      expect(viewState?.weatherCondition, expectedWeatherInfo.weatherCondition);
+      expect(
+        viewState?.minTemperature,
+        expectedWeatherInfo.minTemperature.toString(),
+      );
+      expect(
+        viewState?.maxTemperature,
+        expectedWeatherInfo.maxTemperature.toString(),
+      );
       verify(mockWeatherRepository.getWeather(expectedWeatherTarget)).called(1);
     },
   );
