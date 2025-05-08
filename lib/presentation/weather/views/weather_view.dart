@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_training/domain/weather/constants/weather_condition.dart';
 import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart';
 import 'package:flutter_training/presentation/common/components/error_dialog.dart';
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
+import 'package:flutter_training/presentation/weather/view_states/weather_view_state.dart';
 
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
@@ -34,7 +34,7 @@ class WeatherView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
-      weatherViewModelProvider.select((asyncViewState) => asyncViewState.error),
+      weatherViewModelProvider.select((viewState) => viewState.error),
       (_, next) async {
         if (next != null && context.mounted) {
           await _showErrorDialog(context, next.toString());
@@ -42,21 +42,17 @@ class WeatherView extends ConsumerWidget {
       },
     );
 
-    final asyncViewState = ref.watch(weatherViewModelProvider);
-    final (weatherCondition, minTemperature, maxTemperature) =
-        ref.watch(weatherViewModelProvider.notifier).getViewState();
+    final viewState = ref.watch(weatherViewModelProvider);
 
     return Scaffold(
       body: Stack(
         children: [
           WeatherBody(
-            weatherCondition: weatherCondition,
-            minTemperature: minTemperature,
-            maxTemperature: maxTemperature,
+            viewState: viewState.valueOrNull,
             onClosePressed: () => _closeWeather(context),
             onReloadPressed: () => unawaited(_reloadWeather(ref)),
           ),
-          if (asyncViewState.isLoading) ...[
+          if (viewState.isLoading) ...[
             const ModalBarrier(dismissible: false, color: Colors.black54),
             const Center(child: CircularProgressIndicator()),
           ],
@@ -68,21 +64,15 @@ class WeatherView extends ConsumerWidget {
 
 class WeatherBody extends StatelessWidget {
   const WeatherBody({
-    required WeatherCondition? weatherCondition,
-    required String minTemperature,
-    required String maxTemperature,
+    required WeatherViewState? viewState,
     required VoidCallback onClosePressed,
     required VoidCallback onReloadPressed,
     super.key,
-  }) : _weatherCondition = weatherCondition,
-       _minTemperature = minTemperature,
-       _maxTemperature = maxTemperature,
+  }) : _viewState = viewState,
        _onClosePressed = onClosePressed,
        _onReloadPressed = onReloadPressed;
 
-  final WeatherCondition? _weatherCondition;
-  final String _minTemperature;
-  final String _maxTemperature;
+  final WeatherViewState? _viewState;
   final VoidCallback _onClosePressed;
   final VoidCallback _onReloadPressed;
 
@@ -97,8 +87,8 @@ class WeatherBody extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1,
               child:
-                  _weatherCondition != null
-                      ? SvgPicture.asset(_weatherCondition.svgPath)
+                  _viewState?.weatherCondition != null
+                      ? SvgPicture.asset(_viewState!.weatherCondition!.svgPath)
                       : const Placeholder(),
             ),
             Padding(
@@ -106,11 +96,11 @@ class WeatherBody extends StatelessWidget {
               child: Row(
                 children: [
                   TemperatureIndicator(
-                    label: '$_minTemperature ℃',
+                    value: _viewState?.minTemperature,
                     color: Colors.blue,
                   ),
                   TemperatureIndicator(
-                    label: '$_maxTemperature ℃',
+                    value: _viewState?.maxTemperature,
                     color: Colors.red,
                   ),
                 ],
