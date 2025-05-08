@@ -150,6 +150,7 @@ flowchart TB
   WeatherView((WeatherView));
 
   weatherViewModelProvider ==> WeatherView;
+  weatherViewModelProvider ==> WeatherView;
   weatherViewModelProvider --> WeatherView;
   weatherViewModelProvider -.-> WeatherView;
   weatherRepositoryProvider ==> reloadWeatherUseCaseProvider;
