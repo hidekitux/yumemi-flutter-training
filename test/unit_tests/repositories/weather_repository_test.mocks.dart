@@ -3,10 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i4;
+
 import 'package:flutter_training/domain/weather/entities/weather_info_entity.dart'
     as _i2;
 import 'package:flutter_training/domain/weather/entities/weather_target_entity.dart'
-    as _i4;
+    as _i5;
 import 'package:flutter_training/infrastructure/weather/api/weather_service.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -36,17 +38,23 @@ class _FakeWeatherInfoEntity_0 extends _i1.SmartFake
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherService extends _i1.Mock implements _i3.WeatherService {
   @override
-  _i2.WeatherInfoEntity fetchWeather(_i4.WeatherTargetEntity? weatherTarget) =>
+  _i4.Future<_i2.WeatherInfoEntity> fetchWeather(
+    _i5.WeatherTargetEntity? weatherTarget,
+  ) =>
       (super.noSuchMethod(
             Invocation.method(#fetchWeather, [weatherTarget]),
-            returnValue: _FakeWeatherInfoEntity_0(
-              this,
-              Invocation.method(#fetchWeather, [weatherTarget]),
+            returnValue: _i4.Future<_i2.WeatherInfoEntity>.value(
+              _FakeWeatherInfoEntity_0(
+                this,
+                Invocation.method(#fetchWeather, [weatherTarget]),
+              ),
             ),
-            returnValueForMissingStub: _FakeWeatherInfoEntity_0(
-              this,
-              Invocation.method(#fetchWeather, [weatherTarget]),
+            returnValueForMissingStub: _i4.Future<_i2.WeatherInfoEntity>.value(
+              _FakeWeatherInfoEntity_0(
+                this,
+                Invocation.method(#fetchWeather, [weatherTarget]),
+              ),
             ),
           )
-          as _i2.WeatherInfoEntity);
+          as _i4.Future<_i2.WeatherInfoEntity>);
 }

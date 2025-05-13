@@ -37,6 +37,7 @@ class _WeatherViewRobot {
         child: const MaterialApp(home: WeatherView()),
       ),
     );
+    await tester.pumpAndSettle();
   }
 
   Future<void> tearDown() async {
@@ -45,7 +46,8 @@ class _WeatherViewRobot {
 
   Future<void> tapReloadButton() async {
     await tester.tap(find.widgetWithText(WeatherActionButton, 'Reload'));
-    await tester.pumpAndSettle();
+    // pumpAndSettleではエラーが発生するため
+    await tester.pump(const Duration(milliseconds: 500));
   }
 
   Future<void> tapCloseButton() async {
@@ -61,6 +63,10 @@ class _WeatherViewRobot {
   Future<void> checkPlaceholders() async {
     expect(find.byType(Placeholder), findsOneWidget);
     expect(find.widgetWithText(TemperatureIndicator, '** ℃'), findsNWidgets(2));
+  }
+
+  Future<void> checkLoadingIndicator(Matcher matcher) async {
+    expect(find.byType(CircularProgressIndicator), matcher);
   }
 
   Future<void> checkWeatherCondition(WeatherCondition weatherCondition) async {
@@ -92,9 +98,12 @@ class _WeatherViewRobot {
 
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 void main() {
+  // Arrange
   late MockWeatherRepository mockWeatherRepository;
   setUp(() => mockWeatherRepository = MockWeatherRepository());
   tearDown(() => reset(mockWeatherRepository));
+
+  final expectedWeatherTarget = createWeatherTarget();
 
   testWidgets('The WeatherView is initially displayed, '
       'then placeholders for image and temperatures should be displayed', (
@@ -106,6 +115,22 @@ void main() {
 
     // Act and Assert
     await robot.checkPlaceholders();
+    await robot.tearDown();
+  });
+
+  testWidgets('When the reload button is tapped, loading indicator appears', (
+    tester,
+  ) async {
+    // Arrange
+    final robot = _WeatherViewRobot(tester);
+    await robot.setUp();
+    await robot.checkLoadingIndicator(findsNothing);
+
+    // Act
+    await robot.tapReloadButton();
+
+    // Assert
+    await robot.checkLoadingIndicator(findsOneWidget);
     await robot.tearDown();
   });
 
@@ -123,7 +148,6 @@ void main() {
         ],
       );
       await robot.setUp();
-      final expectedWeatherTarget = createWeatherTarget();
       final expectedWeatherInfo = createWeatherInfo(
         weatherCondition: weatherCondition,
       );
@@ -131,7 +155,7 @@ void main() {
       provideDummy<Result<WeatherInfoEntity>>(expectedResult);
       when(
         mockWeatherRepository.getWeather(expectedWeatherTarget),
-      ).thenReturn(expectedResult);
+      ).thenAnswer((_) => Future.value(expectedResult));
 
       // Act
       await robot.tapReloadButton();
@@ -157,13 +181,12 @@ void main() {
       ],
     );
     await robot.setUp();
-    final expectedWeatherTarget = createWeatherTarget();
     final expectedWeatherInfo = createWeatherInfo();
     final expectedResult = Success(expectedWeatherInfo);
     provideDummy<Result<WeatherInfoEntity>>(expectedResult);
     when(
       mockWeatherRepository.getWeather(expectedWeatherTarget),
-    ).thenReturn(expectedResult);
+    ).thenAnswer((_) => Future.value(expectedResult));
 
     // Act
     await robot.tapReloadButton();
@@ -191,12 +214,11 @@ void main() {
         ],
       );
       await robot.setUp();
-      final expectedWeatherTarget = createWeatherTarget();
       final expectedError = Failure<WeatherInfoEntity>(error.message);
       provideDummy<Result<WeatherInfoEntity>>(expectedError);
       when(
         mockWeatherRepository.getWeather(expectedWeatherTarget),
-      ).thenReturn(expectedError);
+      ).thenAnswer((_) => Future.value(expectedError));
 
       // Act
       await robot.tapReloadButton();

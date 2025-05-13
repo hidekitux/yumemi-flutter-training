@@ -40,17 +40,17 @@ void main() {
     container.dispose();
   });
 
-  test('call returns expected weather info, if API call succeeds', () {
+  test('call returns expected weather info, if API call succeeds', () async {
     // Arrange
     final expectedWeatherInfo = createWeatherInfo();
     final expectedResult = Success(expectedWeatherInfo);
     provideDummy<Result<WeatherInfoEntity>>(expectedResult);
     when(
       mockWeatherRepository.getWeather(weatherTarget),
-    ).thenReturn(expectedResult);
+    ).thenAnswer((_) => Future.value(expectedResult));
 
     // Act
-    final result = reloadWeatherUseCase.call(weatherTarget);
+    final result = await reloadWeatherUseCase.call(weatherTarget);
 
     // Assert
     expect(
@@ -65,15 +65,15 @@ void main() {
   });
 
   for (final error in YumemiWeatherError.values) {
-    test('call returns Failure, if API throws $error', () {
+    test('call returns Failure, if API throws $error', () async {
       // Arrange
       final expectedResult = Failure<WeatherInfoEntity>(error.message);
       when(
         mockWeatherRepository.getWeather(weatherTarget),
-      ).thenReturn(expectedResult);
+      ).thenAnswer((_) => Future.value(expectedResult));
 
       // Act
-      final result = reloadWeatherUseCase.call(weatherTarget);
+      final result = await reloadWeatherUseCase.call(weatherTarget);
 
       // Assert
       expect(
@@ -88,17 +88,17 @@ void main() {
     });
   }
 
-  test('call returns Failure, if API returns invalid data', () {
+  test('call returns Failure, if API returns invalid data', () async {
     // Arrange
     final expectedResult = Failure<WeatherInfoEntity>(
       CommonErrorMessages.unknown.message,
     );
     when(
       mockWeatherRepository.getWeather(weatherTarget),
-    ).thenReturn(expectedResult);
+    ).thenAnswer((_) => Future.value(expectedResult));
 
     // Act
-    final result = reloadWeatherUseCase.call(weatherTarget);
+    final result = await reloadWeatherUseCase.call(weatherTarget);
 
     // Assert
     expect(

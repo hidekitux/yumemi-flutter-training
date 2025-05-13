@@ -8,6 +8,7 @@ import 'package:flutter_training/presentation/common/components/error_dialog.dar
 import 'package:flutter_training/presentation/weather/components/temperature_indicator.dart';
 import 'package:flutter_training/presentation/weather/components/weather_action_button.dart';
 import 'package:flutter_training/presentation/weather/view_models/weather_view_model.dart';
+import 'package:flutter_training/presentation/weather/view_states/weather_view_state.dart';
 
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
@@ -26,76 +27,103 @@ class WeatherView extends ConsumerWidget {
 
   void _closeWeather(BuildContext context) => Navigator.of(context).pop();
 
+  Future<void> _reloadWeather(WidgetRef ref) => ref
+      .read(weatherViewModelProvider.notifier)
+      .reloadWeather(WeatherTargetEntity(area: 'Tokyo', date: DateTime.now()));
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(weatherViewModelProvider.select((e) => e.errorMessage), (
-      _,
-      next,
-    ) async {
-      // errorMessageがnullでなければエラーダイアログを表示する
-      if (next != null) {
-        await _showErrorDialog(context, next);
-      }
-    });
+    ref.listen(
+      weatherViewModelProvider.select((viewState) => viewState.error),
+      (_, next) async {
+        if (next != null && context.mounted) {
+          await _showErrorDialog(context, next.toString());
+        }
+      },
+    );
 
-    final viewModel = ref.watch(weatherViewModelProvider);
+    final viewState = ref.watch(weatherViewModelProvider);
 
     return Scaffold(
-      body: Center(
-        child: FractionallySizedBox(
-          widthFactor: 1 / 2,
-          child: Column(
-            children: [
-              const Spacer(),
-              AspectRatio(
-                aspectRatio: 1,
-                child:
-                    viewModel.weatherCondition != null
-                        ? SvgPicture.asset(viewModel.weatherCondition!.svgPath)
-                        : const Placeholder(),
+      body: Stack(
+        children: [
+          WeatherBody(
+            viewState: viewState.valueOrNull,
+            onClosePressed: () => _closeWeather(context),
+            onReloadPressed: () => unawaited(_reloadWeather(ref)),
+          ),
+          if (viewState.isLoading) ...[
+            const ModalBarrier(dismissible: false, color: Colors.black54),
+            const Center(child: CircularProgressIndicator()),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class WeatherBody extends StatelessWidget {
+  const WeatherBody({
+    required WeatherViewState? viewState,
+    required VoidCallback onClosePressed,
+    required VoidCallback onReloadPressed,
+    super.key,
+  }) : _viewState = viewState,
+       _onClosePressed = onClosePressed,
+       _onReloadPressed = onReloadPressed;
+
+  final WeatherViewState? _viewState;
+  final VoidCallback _onClosePressed;
+  final VoidCallback _onReloadPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: FractionallySizedBox(
+        widthFactor: 1 / 2,
+        child: Column(
+          children: [
+            const Spacer(),
+            AspectRatio(
+              aspectRatio: 1,
+              child:
+                  _viewState?.weatherCondition != null
+                      ? SvgPicture.asset(_viewState!.weatherCondition!.svgPath)
+                      : const Placeholder(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                children: [
+                  TemperatureIndicator(
+                    value: _viewState?.minTemperature,
+                    color: Colors.blue,
+                  ),
+                  TemperatureIndicator(
+                    value: _viewState?.maxTemperature,
+                    color: Colors.red,
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 80),
                 child: Row(
                   children: [
-                    TemperatureIndicator(
-                      label: '${viewModel.minTemperature} ℃',
-                      color: Colors.blue,
+                    WeatherActionButton(
+                      label: 'Close',
+                      onPressed: _onClosePressed,
                     ),
-                    TemperatureIndicator(
-                      label: '${viewModel.maxTemperature} ℃',
-                      color: Colors.red,
+                    WeatherActionButton(
+                      label: 'Reload',
+                      onPressed: _onReloadPressed,
                     ),
                   ],
                 ),
               ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 80),
-                  child: Row(
-                    children: [
-                      WeatherActionButton(
-                        label: 'Close',
-                        onPressed: () => _closeWeather(context),
-                      ),
-                      WeatherActionButton(
-                        label: 'Reload',
-                        onPressed:
-                            () => ref
-                                .read(weatherViewModelProvider.notifier)
-                                .reloadWeather(
-                                  WeatherTargetEntity(
-                                    area: 'Tokyo',
-                                    date: DateTime.now(),
-                                  ),
-                                ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

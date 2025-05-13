@@ -11,6 +11,6 @@ class ReloadWeatherUseCase
   final WeatherRepository _weatherRepository;
 
   @override
-  Result<WeatherInfoEntity> call(WeatherTargetEntity weatherTarget) =>
+  Future<Result<WeatherInfoEntity>> call(WeatherTargetEntity weatherTarget) =>
       _weatherRepository.getWeather(weatherTarget);
 }

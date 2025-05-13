@@ -9,24 +9,27 @@ part 'weather_view_model.g.dart';
 @riverpod
 class WeatherViewModel extends _$WeatherViewModel {
   @override
-  WeatherViewState build() => const WeatherViewState();
+  FutureOr<WeatherViewState> build() => Future.value(const WeatherViewState());
 
   /// 天気予報を取得し、実行結果に応じてstateを更新する
   /// - 成功時: エラーメッセージを消去し、取得した天気予報でstateを更新する
   /// - 失敗時: 元の天気予報を保持しながら、エラーメッセージでstateを更新する
-  void reloadWeather(WeatherTargetEntity weatherTarget) {
-    final result = ref.read(reloadWeatherUseCaseProvider).call(weatherTarget);
+  Future<void> reloadWeather(WeatherTargetEntity weatherTarget) async {
+    state = const AsyncValue.loading();
 
-    switch (result) {
-      case Success(value: final weatherInfo):
-        state = state.copyWith(
-          errorMessage: null,
+    final result = await ref
+        .read(reloadWeatherUseCaseProvider)
+        .call(weatherTarget);
+
+    state = switch (result) {
+      Success(value: final weatherInfo) => AsyncValue.data(
+        WeatherViewState(
           weatherCondition: weatherInfo.weatherCondition,
           minTemperature: weatherInfo.minTemperature.toString(),
           maxTemperature: weatherInfo.maxTemperature.toString(),
-        );
-      case Failure(message: final message):
-        state = state.copyWith(errorMessage: message);
-    }
+        ),
+      ),
+      Failure(:final message) => AsyncValue.error(message, StackTrace.current),
+    };
   }
 }
